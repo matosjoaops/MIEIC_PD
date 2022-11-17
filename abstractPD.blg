@@ -4,36 +4,38 @@ The top-level auxiliary file: abstractPD.aux
 The style file: unsrt.bst
 Database file #1: abstractBib.bib
 Warning--empty journal in reisLiveDockerContainers2020
-You've used 1 entry,
+Warning--empty journal in prinettoSecurityMisconfigurationsDetection
+Warning--empty journal in maduroAutomaticServiceContainerization2021
+You've used 3 entries,
             1791 wiz_defined-function locations,
-            450 strings with 3642 characters,
-and the built_in function-call counts, 150 in all, are:
-= -- 10
-> -- 4
+            460 strings with 4054 characters,
+and the built_in function-call counts, 439 in all, are:
+= -- 31
+> -- 19
 < -- 0
-+ -- 2
-- -- 1
-* -- 7
-:= -- 32
-add.period$ -- 3
-call.type$ -- 1
-change.case$ -- 1
++ -- 8
+- -- 5
+* -- 20
+:= -- 84
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 3
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 8
-empty$ -- 15
-format.name$ -- 1
-if$ -- 28
+cite$ -- 6
+duplicate$ -- 24
+empty$ -- 43
+format.name$ -- 5
+if$ -- 88
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 8
-num.names$ -- 1
-pop$ -- 5
+int.to.str$ -- 3
+missing$ -- 3
+newline$ -- 18
+num.names$ -- 3
+pop$ -- 15
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 3
+skip$ -- 9
 stack$ -- 0
 substring$ -- 0
 swap$ -- 0
@@ -41,8 +43,8 @@ text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 1
-width$ -- 2
-write$ -- 11
-(There was 1 warning)
+warning$ -- 3
+while$ -- 3
+width$ -- 4
+write$ -- 29
+(There were 3 warnings)

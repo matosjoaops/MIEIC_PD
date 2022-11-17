@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex abstractPD"] 1668615489 "abstractPD.aux" "abstractPD.bbl" "abstractPD" 1668615852
+["bibtex abstractPD"] 1668689597 "abstractPD.aux" "abstractPD.bbl" "abstractPD" 1668701745
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "abstractBib.bib" 1668615489 3076 6ee53ddf6c000124748ca26b33ed5af6 ""
-  "abstractPD.aux" 1668615852 166 f086ff8d5133dee1b9cd51f7fa1ab1c3 "pdflatex"
+  "abstractBib.bib" 1668689568 3934 0ad1f226f2a6aedd8a33a319f0099436 ""
+  "abstractPD.aux" 1668701745 426 d206935d42db4e70200681c2baffe256 "pdflatex"
   (generated)
   "abstractPD.bbl"
   "abstractPD.blg"
-["pdflatex"] 1668615852 "/home/mechjm/Faculdade/Repositories/PD/abstractPD.tex" "abstractPD.pdf" "abstractPD" 1668615852
-  "/etc/texmf/web2c/texmf.cnf" 1657628517 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/mechjm/Faculdade/Repositories/PD/abstractPD.tex" 1668615851 2055 a5b86016ff6a3cab82b41d4add037955 ""
+["pdflatex"] 1668701745 "/home/mechjm/Faculdade/Repositories/PD/abstractPD.tex" "abstractPD.pdf" "abstractPD" 1668701745
+  "/etc/texmf/web2c/texmf.cnf" 1657490508 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/home/mechjm/Faculdade/Repositories/PD/abstractPD.tex" 1668701744 2732 894441f5ef88bccc02ffdd1eb286afca ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -38,11 +38,11 @@
   "/usr/share/texlive/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1668612325 4379155 98693266ff65f58d9f98aff394de12d2 ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1668612344 2799819 eb44a523ecb8424664fd2d68ee317809 ""
-  "abstractPD.aux" 1668615852 166 f086ff8d5133dee1b9cd51f7fa1ab1c3 "pdflatex"
-  "abstractPD.bbl" 1668615489 177 526e137ddf33a3a4b06c99bc13e250bb "bibtex abstractPD"
-  "abstractPD.tex" 1668615851 2055 a5b86016ff6a3cab82b41d4add037955 ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1668683524 4379155 98693266ff65f58d9f98aff394de12d2 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1668683532 2799913 62247413bbb08a0bf9379568d4dd5570 ""
+  "abstractPD.aux" 1668701745 426 d206935d42db4e70200681c2baffe256 "pdflatex"
+  "abstractPD.bbl" 1668689597 582 9d35a337880f396f179d06b70ffbfe7c "bibtex abstractPD"
+  "abstractPD.tex" 1668701744 2732 894441f5ef88bccc02ffdd1eb286afca ""
   (generated)
   "abstractPD.aux"
   "abstractPD.log"

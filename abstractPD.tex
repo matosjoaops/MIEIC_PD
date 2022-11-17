@@ -36,9 +36,7 @@
 
 \section*{Abstract}
 
-Nowadays, containerization is a technique used in a very large number of systems to address problems associated with deployment. The most popular tool used to perform this task is Docker. In order to use Docker, a developer must create a Dockerfile, a configuration file that is used to create the containers. Creating these files can be difficult \cite{reisLiveDockerContainers2020} and even functional files can have problems. In fact (add a reference about how a large percentage of dockerfiles are vulnerable)...
-
-
+Nowadays, containerization is a technique used in a very large number of systems to address problems associated with deployment. The most popular tool used to perform this task is Docker. In order to use Docker, a developer must create a Dockerfile, a configuration file that is used to create the containers. Creating these files can be difficult \cite{reisLiveDockerContainers2020}, and even functional files can have problems. In fact, according to \cite{prinettoSecurityMisconfigurationsDetection} "97.6\% of the Dockerfile contains at least one security misconfiguration". For these reasons, there is a need for tools that aid with the creation and repair of Dockerfiles. Hermit \cite{maduroAutomaticServiceContainerization2021} and Dockerlive \cite{reisLiveDockerContainers2020}, are tools that aim to help developers with these tasks and have shown promising results. However, there are still limitations to what these tools can do. Therefore, this dissertation aims to improve both of these tools, making them capable of generating Dockerfiles (or suggesting fixes to existing ones) that follow best practices, leading to safer and more efficient containers that can be developed faster.
 
 
 \titles{Keywords}{Dockerfile, Docker, File generation, File repair}

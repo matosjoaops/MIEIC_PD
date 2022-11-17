@@ -5,4 +5,15 @@ David Alexandre~Gomes Reis.
 \newblock Live {{Docker Containers}}.
 \newblock July 2020.
 
+\bibitem{prinettoSecurityMisconfigurationsDetection}
+Paolo~Ernesto Prinetto, Dott~Riccardo Bortolameotti, and Giuseppe Massaro.
+\newblock Security {{Misconfigurations Detection}} and {{Repair}} in
+  {{Dockerfile}}.
+\newblock 2022.
+
+\bibitem{maduroAutomaticServiceContainerization2021}
+Jo{\~a}o Carlos~Cardoso Maduro.
+\newblock Automatic {{Service Containerization}} with {{Docker}}.
+\newblock July 2021.
+
 \end{thebibliography}
