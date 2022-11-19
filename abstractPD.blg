@@ -5,46 +5,48 @@ The style file: unsrt.bst
 Database file #1: abstractBib.bib
 Warning--empty journal in reisLiveDockerContainers2020
 Warning--empty journal in prinettoSecurityMisconfigurationsDetection
+Warning--empty year in prinettoSecurityMisconfigurationsDetection
+Warning--empty journal in tomyModusDatalogDialect2022
 Warning--empty journal in maduroAutomaticServiceContainerization2021
-You've used 3 entries,
+You've used 6 entries,
             1791 wiz_defined-function locations,
-            460 strings with 4054 characters,
-and the built_in function-call counts, 439 in all, are:
-= -- 31
-> -- 19
-< -- 0
-+ -- 8
-- -- 5
-* -- 20
-:= -- 84
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 3
+            478 strings with 4934 characters,
+and the built_in function-call counts, 1591 in all, are:
+= -- 132
+> -- 70
+< -- 4
++ -- 26
+- -- 20
+* -- 94
+:= -- 235
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 6
 chr.to.int$ -- 0
-cite$ -- 6
-duplicate$ -- 24
-empty$ -- 43
-format.name$ -- 5
-if$ -- 88
+cite$ -- 11
+duplicate$ -- 88
+empty$ -- 146
+format.name$ -- 20
+if$ -- 366
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 3
-newline$ -- 18
-num.names$ -- 3
-pop$ -- 15
+int.to.str$ -- 6
+missing$ -- 6
+newline$ -- 33
+num.names$ -- 6
+pop$ -- 35
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 9
+skip$ -- 57
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 80
+swap$ -- 34
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 3
-while$ -- 3
-width$ -- 4
-write$ -- 29
-(There were 3 warnings)
+warning$ -- 5
+while$ -- 14
+width$ -- 7
+write$ -- 61
+(There were 5 warnings)

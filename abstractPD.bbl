@@ -9,7 +9,26 @@ David Alexandre~Gomes Reis.
 Paolo~Ernesto Prinetto, Dott~Riccardo Bortolameotti, and Giuseppe Massaro.
 \newblock Security {{Misconfigurations Detection}} and {{Repair}} in
   {{Dockerfile}}.
-\newblock 2022.
+\newblock page~78.
+
+\bibitem{tomyModusDatalogDialect2022}
+Chris Tomy, Tingmao Wang, Earl~T Barr, and Sergey Mechtaev.
+\newblock Modus: {{A Datalog Dialect}} for {{Building Container Images}}.
+\newblock page~12, 2022.
+
+\bibitem{yeDockerGenKnowledgeGraph2021a}
+Hongjie Ye, Jiahong Zhou, Wei Chen, Jiaxin Zhu, Guoquan Wu, and Jun Wei.
+\newblock {{DockerGen}}: {{A Knowledge Graph}} based {{Approach}} for
+  {{Software Containerization}}.
+\newblock In {\em 2021 {{IEEE}} 45th {{Annual Computers}}, {{Software}}, and
+  {{Applications Conference}} ({{COMPSAC}})}, pages 986--991, July 2021.
+
+\bibitem{henkelShipwrightHumanintheLoopSystem2021}
+Jordan Henkel, Denini Silva, Leopoldo Teixeira, Marcelo {d'Amorim}, and Thomas
+  Reps.
+\newblock Shipwright: {{A Human-in-the-Loop System}} for {{Dockerfile Repair}}.
+\newblock In {\em 2021 {{IEEE}}/{{ACM}} 43rd {{International Conference}} on
+  {{Software Engineering}} ({{ICSE}})}, pages 1148--1160, May 2021.
 
 \bibitem{maduroAutomaticServiceContainerization2021}
 Jo{\~a}o Carlos~Cardoso Maduro.
