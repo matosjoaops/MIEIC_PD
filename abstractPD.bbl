@@ -1,4 +1,4 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{17}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -41,9 +41,101 @@ Jordan Henkel, Denini Silva, Leopoldo Teixeira, Marcelo {d'Amorim}, and Thomas
   {{Software Engineering}} ({{ICSE}})}, pages 1148--1160, May 2021.
 \newblock \doi{10.1109/ICSE43902.2021.00106}.
 
+\bibitem[Maloney and Smith(1995)]{maloneyDirectnessLivenessMorphic1995}
+John~H. Maloney and Randall~B. Smith.
+\newblock Directness and liveness in the morphic user interface construction
+  environment.
+\newblock In \emph{Proceedings of the 8th Annual {{ACM}} Symposium on {{User}}
+  Interface and Software Technology - {{UIST}} '95}, pages 21--28, {Pittsburgh,
+  Pennsylvania, United States}, 1995. {ACM Press}.
+\newblock ISBN 978-0-89791-709-4.
+\newblock \doi{10.1145/215585.215636}.
+
 \bibitem[Maduro(2021)]{maduroAutomaticServiceContainerization2021}
 Jo{\~a}o Carlos~Cardoso Maduro.
 \newblock Automatic {{Service Containerization}} with {{Docker}}.
 \newblock July 2021.
+
+\bibitem[Henkel et~al.(2020)Henkel, Bird, Lahiri, and
+  Reps]{henkelDatasetDockerfiles2020}
+Jordan Henkel, Christian Bird, Shuvendu~K. Lahiri, and Thomas Reps.
+\newblock A {{Dataset}} of {{Dockerfiles}}.
+\newblock In \emph{Proceedings of the 17th {{International Conference}} on
+  {{Mining Software Repositories}}}, {{MSR}} '20, pages 528--532, {New York,
+  NY, USA}, September 2020. {Association for Computing Machinery}.
+\newblock ISBN 978-1-4503-7517-7.
+\newblock \doi{10.1145/3379597.3387498}.
+
+\bibitem[Inv()]{InvestigatingInnerWorkings}
+Investigating the inner workings of container image vulnerability scanners.
+\newblock
+  https://oda.oslomet.no/oda-xmlui/bitstream/handle/11250/3017416/zarei-acit2022.pdf?sequence=1.
+
+\bibitem[Linnalampi()]{linnalampiOutdatedSoftwareContainer}
+Markus Linnalampi.
+\newblock Outdated software in container images.
+\newblock page~57.
+
+\bibitem[McArdle and Kitchin(2016)]{mcardleContainerImageOptimisation2016}
+G.~McArdle and R.~Kitchin.
+\newblock Container {{Image Optimisation}} and {{Security Practices}}.
+\newblock \emph{ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial
+  Information Sciences}, IV-4/W1:\penalty0 19--25, September 2016.
+\newblock ISSN 2194-9050.
+\newblock \doi{10.5194/isprs-annals-IV-4-W1-19-2016}.
+
+\bibitem[McMillan()]{mcmillanMAKINGCONTAINERSEASIER}
+Scott McMillan.
+\newblock {{MAKING CONTAINERS EASIER WITH HPC CONTAINER MAKER}}.
+\newblock page~47.
+
+\bibitem[Reis and Correia(2022)]{reisDockerliveLiveDevelopment2022}
+David Reis and Filipe~F. Correia.
+\newblock Dockerlive : {{A}} live development environment for {{Dockerfiles}}.
+\newblock In \emph{2022 {{IEEE Symposium}} on {{Visual Languages}} and
+  {{Human-Centric Computing}} ({{VL}}/{{HCC}})}, pages 1--4, {Roma, Italy},
+  September 2022. {IEEE}.
+\newblock ISBN 978-1-66544-214-5.
+\newblock \doi{10.1109/VL/HCC53370.2022.9833145}.
+
+\bibitem[Rosa et~al.(2022)Rosa, Scalabrino, and
+  Oliveto]{rosaFixingDockerfileSmells2022}
+Giovanni Rosa, Simone Scalabrino, and Rocco Oliveto.
+\newblock Fixing {{Dockerfile Smells}}: {{An Empirical Study}}, August 2022.
+
+\bibitem[Santoro et~al.(2018)Santoro, Messina, D'Urso, and
+  Santoro]{santoroWaleDockerfileBasedApproach2018}
+Corrado Santoro, Fabrizio Messina, Fabio D'Urso, and Federico~Fausto Santoro.
+\newblock Wale: {{A Dockerfile-Based Approach}} to {{Deduplicate Shared
+  Libraries}} in {{Docker Containers}}.
+\newblock In \emph{2018 {{IEEE}} 16th {{Intl Conf}} on {{Dependable}},
+  {{Autonomic}} and {{Secure Computing}}, 16th {{Intl Conf}} on {{Pervasive
+  Intelligence}} and {{Computing}}, 4th {{Intl Conf}} on {{Big Data
+  Intelligence}} and {{Computing}} and {{Cyber Science}} and {{Technology
+  Congress}}({{DASC}}/{{PiCom}}/{{DataCom}}/{{CyberSciTech}})}, pages 785--791,
+  August 2018.
+\newblock \doi{10.1109/DASC/PiCom/DataCom/CyberSciTec.2018.00135}.
+
+\bibitem[Sorgalla et~al.(2021)Sorgalla, Wizenty, Rademacher, Sachweh, and
+  Z{\"u}ndorf]{sorgallaApplyingModelDrivenEngineering2021}
+Jonas Sorgalla, Philip Wizenty, Florian Rademacher, Sabine Sachweh, and Albert
+  Z{\"u}ndorf.
+\newblock Applying {{Model-Driven Engineering}} to {{Stimulate}} the
+  {{Adoption}} of {{DevOps Processes}} in {{Small}} and {{Medium-Sized
+  Development Organizations}}: {{The Case}} for {{Microservice Architecture}}.
+\newblock \emph{SN Computer Science}, 2\penalty0 (6):\penalty0 459, November
+  2021.
+\newblock ISSN 2662-995X, 2661-8907.
+\newblock \doi{10.1007/s42979-021-00825-z}.
+
+\bibitem[Wu et~al.(2020)Wu, Zhang, Wang, and Wang]{wuEmpiricalStudyBuild2020}
+Yiwen Wu, Yang Zhang, Tao Wang, and Huaimin Wang.
+\newblock An {{Empirical Study}} of {{Build Failures}} in the {{Docker
+  Context}}.
+\newblock In \emph{Proceedings of the 17th {{International Conference}} on
+  {{Mining Software Repositories}}}, pages 76--80, {Seoul Republic of Korea},
+  June 2020. {ACM}.
+\newblock ISBN 978-1-4503-7517-7.
+\newblock \doi{10.1145/3379597.3387483}.
 
 \end{thebibliography}

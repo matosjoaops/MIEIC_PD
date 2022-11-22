@@ -9,45 +9,52 @@ Warning--empty year in prinettoSecurityMisconfigurationsDetection
 Warning--empty year in prinettoSecurityMisconfigurationsDetection
 Warning--empty journal in tomyModusDatalogDialect2022
 Warning--empty journal in maduroAutomaticServiceContainerization2021
-You've used 6 entries,
+Warning--empty year in InvestigatingInnerWorkings
+Warning--empty journal in linnalampiOutdatedSoftwareContainer
+Warning--empty year in linnalampiOutdatedSoftwareContainer
+Warning--empty year in linnalampiOutdatedSoftwareContainer
+Warning--empty journal in mcmillanMAKINGCONTAINERSEASIER
+Warning--empty year in mcmillanMAKINGCONTAINERSEASIER
+Warning--empty year in mcmillanMAKINGCONTAINERSEASIER
+You've used 17 entries,
             2481 wiz_defined-function locations,
-            588 strings with 5917 characters,
-and the built_in function-call counts, 2604 in all, are:
-= -- 208
-> -- 134
-< -- 6
-+ -- 52
-- -- 40
-* -- 187
-:= -- 399
-add.period$ -- 20
-call.type$ -- 6
-change.case$ -- 12
-chr.to.int$ -- 6
-cite$ -- 12
-duplicate$ -- 148
-empty$ -- 228
-format.name$ -- 46
-if$ -- 564
+            675 strings with 9324 characters,
+and the built_in function-call counts, 7327 in all, are:
+= -- 651
+> -- 328
+< -- 18
++ -- 130
+- -- 96
+* -- 528
+:= -- 1093
+add.period$ -- 68
+call.type$ -- 17
+change.case$ -- 34
+chr.to.int$ -- 17
+cite$ -- 31
+duplicate$ -- 409
+empty$ -- 660
+format.name$ -- 118
+if$ -- 1629
 int.to.chr$ -- 1
-int.to.str$ -- 7
-missing$ -- 6
-newline$ -- 40
-num.names$ -- 18
-pop$ -- 71
+int.to.str$ -- 18
+missing$ -- 15
+newline$ -- 106
+num.names$ -- 48
+pop$ -- 183
 preamble$ -- 1
-purify$ -- 6
+purify$ -- 17
 quote$ -- 0
-skip$ -- 96
+skip$ -- 261
 stack$ -- 0
-substring$ -- 92
-swap$ -- 44
-text.length$ -- 4
+substring$ -- 279
+swap$ -- 119
+text.length$ -- 11
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 42
-warning$ -- 6
-while$ -- 20
+type$ -- 119
+warning$ -- 13
+while$ -- 60
 width$ -- 0
-write$ -- 82
-(There were 6 warnings)
+write$ -- 249
+(There were 13 warnings)

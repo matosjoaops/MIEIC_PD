@@ -37,18 +37,17 @@
 
 \section*{Abstract}
 
-Nowadays, containerization is a technique used in a very large number of systems to address problems associated with deployment. The most popular tool used to perform this task is Docker. In order to use Docker, a developer must create a Dockerfile, a configuration file that is used to create the containers. Creating these files is not always straightforward \cite{reisLiveDockerContainers2020}, and even functional files can have problems. In fact, according to \citeauthor{prinettoSecurityMisconfigurationsDetection} \cite{prinettoSecurityMisconfigurationsDetection}, "97.6\% of the Dockerfile contains at least one security misconfiguration". For these reasons, there is a need for tools that aid with the generation and repair of Dockerfiles.
+Nowadays, containerization is a technique used in a very large number of systems to address problems associated with deployment. The most popular tool used to perform this task is Docker. In order to use Docker, a developer must create a Dockerfile, a configuration file that is used to create the containers. Creating these files is not always straightforward \cite{reisLiveDockerContainers2020}, and even functional files can have problems. In fact, according to \citeauthor{prinettoSecurityMisconfigurationsDetection} \cite{prinettoSecurityMisconfigurationsDetection}, "97.6\% of the Dockerfile contains at least one security misconfiguration". For these reasons, there is a need for tools that aid with the generation and development of Dockerfiles.
 
 When it comes to generating the files, current solutions either require some preexisting documentation and the use of models \cite{tomyModusDatalogDialect2022} or a vast dataset that is hard to replicate \cite{yeDockerGenKnowledgeGraph2021a}.
 
-For automatic repair, some work already exists \cite{henkelShipwrightHumanintheLoopSystem2021}. However, the development experience could be improved by having this functionality integrated into a code editor where the problems and their solutions can be presented more clearly to the developer.
+For automatic repair, some work already exists \cite{henkelShipwrightHumanintheLoopSystem2021}. However, the development experience could be improved by having this functionality integrated into a code editor where any mistakes introduced by the automatic repair can be quickly addressed. Furthermore, having access to this functionality in an editor also increases the directness \cite{maloneyDirectnessLivenessMorphic1995} of the developer's interaction with the file.
 
-With this in mind, this dissertation aims to provide a tool that can help developers when creating or editing Dockerfiles and study the impact such a tool
-has on the development experience and the quality of the files that are created or modified using it.
+With this in mind, this dissertation aims to study how the development experience is affected by the introduction of automation in the Dockerfile creation and development processes.
 
-To reach this goal, two tools created by former students to assist developers with these tasks, Hermit \cite{maduroAutomaticServiceContainerization2021} (focused on generation) and Dockerlive \cite{reisLiveDockerContainers2020} (focused on liveness and repair) will be improved and combined into the previously mentioned tool. The final tool will make it easier for developers to create Dockerfiles that follow best practices.
+To reach this goal, two tools created to assist developers with these tasks, Hermit \cite{maduroAutomaticServiceContainerization2021} (focused on generation) and Dockerlive \cite{reisLiveDockerContainers2020} (focused on liveness and repair), will be improved and combined into a tool that can help developers when creating or editing Dockerfiles. This tool will make it easier for developers to create Dockerfiles that follow best practices.
 
-Furthermore, a study will be conducted to evaluate the performance of Dockerlive and the way it enhances the development experience. Industry participants will be involved in the study and several metrics like task completion time, container size and number of detected vulnerabilities will be used to assess the experience of the developers as well as the quality of the Dockerfiles produced.
+Furthermore, a study will be conducted to evaluate how Dockerlive enhances the development experience. Industry participants will be involved, and several metrics like task completion time, container size, and the number of detected vulnerabilities will be used to assess the experience of the developers as well as the quality of the Dockerfiles produced. This study falls under the category of Action Research.
 
 \titles{Keywords}{Dockerfile, Docker, File generation, File repair}
 \titles{ACM Classification}{CCS - Software and its engineering - Software notation and tools - Software configuration management and version control systems
@@ -56,7 +55,7 @@ Furthermore, a study will be conducted to evaluate the performance of Dockerlive
 
 
 
-%\nocite{*}  % to include references which were not cited
+\nocite{*}  % to include references which were not cited
 
 %% the references using BibTeX
 \bibliographystyle{unsrtnat}
