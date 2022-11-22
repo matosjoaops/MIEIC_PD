@@ -5,19 +5,10 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Henkel et~al.(2021)Henkel, Silva, Teixeira, {d'Amorim}, and
-  Reps]{henkelShipwrightHumanintheLoopSystem2021}
-Jordan Henkel, Denini Silva, Leopoldo Teixeira, Marcelo {d'Amorim}, and Thomas
-  Reps.
-\newblock Shipwright: {{A Human-in-the-Loop System}} for {{Dockerfile Repair}}.
-\newblock In \emph{2021 {{IEEE}}/{{ACM}} 43rd {{International Conference}} on
-  {{Software Engineering}} ({{ICSE}})}, pages 1148--1160, May 2021.
-\newblock \doi{10.1109/ICSE43902.2021.00106}.
-
-\bibitem[Maduro(2021)]{maduroAutomaticServiceContainerization2021}
-Jo{\~a}o Carlos~Cardoso Maduro.
-\newblock Automatic {{Service Containerization}} with {{Docker}}.
-\newblock July 2021.
+\bibitem[Reis(2020)]{reisLiveDockerContainers2020}
+David Alexandre~Gomes Reis.
+\newblock Live {{Docker Containers}}.
+\newblock July 2020.
 
 \bibitem[Prinetto et~al.()Prinetto, Bortolameotti, and
   Massaro]{prinettoSecurityMisconfigurationsDetection}
@@ -25,11 +16,6 @@ Paolo~Ernesto Prinetto, Dott~Riccardo Bortolameotti, and Giuseppe Massaro.
 \newblock Security {{Misconfigurations Detection}} and {{Repair}} in
   {{Dockerfile}}.
 \newblock page~78.
-
-\bibitem[Reis(2020)]{reisLiveDockerContainers2020}
-David Alexandre~Gomes Reis.
-\newblock Live {{Docker Containers}}.
-\newblock July 2020.
 
 \bibitem[Tomy et~al.(2022)Tomy, Wang, Barr, and
   Mechtaev]{tomyModusDatalogDialect2022}
@@ -45,5 +31,19 @@ Hongjie Ye, Jiahong Zhou, Wei Chen, Jiaxin Zhu, Guoquan Wu, and Jun Wei.
 \newblock In \emph{2021 {{IEEE}} 45th {{Annual Computers}}, {{Software}}, and
   {{Applications Conference}} ({{COMPSAC}})}, pages 986--991, July 2021.
 \newblock \doi{10.1109/COMPSAC51774.2021.00133}.
+
+\bibitem[Henkel et~al.(2021)Henkel, Silva, Teixeira, {d'Amorim}, and
+  Reps]{henkelShipwrightHumanintheLoopSystem2021}
+Jordan Henkel, Denini Silva, Leopoldo Teixeira, Marcelo {d'Amorim}, and Thomas
+  Reps.
+\newblock Shipwright: {{A Human-in-the-Loop System}} for {{Dockerfile Repair}}.
+\newblock In \emph{2021 {{IEEE}}/{{ACM}} 43rd {{International Conference}} on
+  {{Software Engineering}} ({{ICSE}})}, pages 1148--1160, May 2021.
+\newblock \doi{10.1109/ICSE43902.2021.00106}.
+
+\bibitem[Maduro(2021)]{maduroAutomaticServiceContainerization2021}
+Jo{\~a}o Carlos~Cardoso Maduro.
+\newblock Automatic {{Service Containerization}} with {{Docker}}.
+\newblock July 2021.
 
 \end{thebibliography}
