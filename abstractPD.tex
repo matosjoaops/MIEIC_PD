@@ -6,6 +6,7 @@
 \usepackage{parskip}            % no indentation on paragraphs
 \usepackage{url}                % URLs
 \usepackage{lipsum}             % loren dummy text
+\usepackage[numbers]{natbib}
 
 %% margins
 \RequirePackage[outer=25mm,inner=30mm,vmargin=16mm,includehead,includefoot,headheight=15pt]{geometry}
@@ -36,7 +37,7 @@
 
 \section*{Abstract}
 
-Nowadays, containerization is a technique used in a very large number of systems to address problems associated with deployment. The most popular tool used to perform this task is Docker. In order to use Docker, a developer must create a Dockerfile, a configuration file that is used to create the containers. Creating these files can be difficult \cite{reisLiveDockerContainers2020}, and even functional files can have problems. In fact, according to \cite{prinettoSecurityMisconfigurationsDetection}, "97.6\% of the Dockerfile contains at least one security misconfiguration". For these reasons, there is a need for tools that aid with the generation and repair of Dockerfiles.
+Nowadays, containerization is a technique used in a very large number of systems to address problems associated with deployment. The most popular tool used to perform this task is Docker. In order to use Docker, a developer must create a Dockerfile, a configuration file that is used to create the containers. Creating these files is not always straightforward \cite{reisLiveDockerContainers2020}, and even functional files can have problems. In fact, according to \citeauthor{prinettoSecurityMisconfigurationsDetection} \cite{prinettoSecurityMisconfigurationsDetection}, "97.6\% of the Dockerfile contains at least one security misconfiguration". For these reasons, there is a need for tools that aid with the generation and repair of Dockerfiles.
 
 When it comes to generating the files, current solutions either require some preexisting documentation and the use of models \cite{tomyModusDatalogDialect2022} or a vast dataset that is hard to replicate \cite{yeDockerGenKnowledgeGraph2021a}.
 
@@ -58,7 +59,7 @@ Furthermore, a study will be conducted to evaluate the performance of Dockerlive
 %\nocite{*}  % to include references which were not cited
 
 %% the references using BibTeX
-\bibliographystyle{unsrt}
+\bibliographystyle{plainnat}
 \bibliography{abstractBib}
 
 \end{document}
