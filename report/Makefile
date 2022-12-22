@@ -28,7 +28,7 @@ LATEXBIB=$(PDFLATEX)
 
 ## make
 latexmk:
-	latexmk -pdf -bibtex -recorder -pvc $(TARGET).tex
+	latexmk -pdf -bibtex -recorder -pvc -jobname=build/$(TARGET).pdf $(TARGET).tex
 
 ## Extensions
 EXTS=aux toc idx ind ilg log out lof lot lol bbl blg brf tdo fls nav snm fdb_latexmk vrb
