@@ -6,21 +6,27 @@ This section covers existing literature and tools that are related to several co
 ...
 \section{Speeding up Docker builds} \label{speeding_up_docker_builds}
 
+Building Docker images can take a considerable amount of time, especially when a large amount of files have to be fetched from the internet ~\citep{harterSlackerFastDistribution}. Therefore, we looked for ways to reduce the amount of time consumed by this activity. Our findings are summarized in Table \ref{tab:works_speeding_up}.
+
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.35\textwidth}|c|c|c|}
-        \hline \textbf{Name} & \textbf{Speedup} & \textbf{Limitations} & \textbf{Ease of implementation} \\
-        \hline A Code Injection Method for Rapid Docker Image Building \citep{wangCodeInjectionMethod2019} & adsf & adf & adsfaf \\
-        \hline A Code Injection Method for Rapid Docker Image Building \citep{wangCodeInjectionMethod2019} & adsf & adf & adsfaf \\
-        \hline A Code Injection Method for Rapid Docker Image Building \citep{wangCodeInjectionMethod2019} & adsf & adf & adsfaf \\
-        \hline A Code Injection Method for Rapid Docker Image Building \citep{wangCodeInjectionMethod2019} & adsf & adf & adsfaf \\
+    \begin{tabular}{|p{0.25\textwidth}|c|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Speedup} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
+        \hline A Code Injection Method for Rapid Docker Image Building \cite{wangCodeInjectionMethod2019} & Up to 100000x faster & Can only be used with interpreted languages, limited to modifications in the source code & High \\
+        \hline FastBuild: Accelerating Docker Image Building for Efficient Development and Deployment of Container \cite{huangFastBuildAcceleratingDocker2019} & Up to 10x faster & Limited to network activity & High \\
+        \hline Slacker: Fast Distribution with Lazy Docker Containers \cite{harterSlackerFastDistribution} & Up to 20x faster & Limited to network activity & High \\
+        \hline Docker Buildx \cite{DockerBuildx2022} & Unknown & Unknown & Low-Medium \\
         \hline
     \end{tabular} 
     \caption{Works about speeding up Docker builds}
     \label{tab:works_speeding_up}
 \end{table}
 
+Wang et al. \cite{wangCodeInjectionMethod2019} propose a technique that bypasses typical building procedures by injecting the code modifications directly in an image. The results are very promising. However, due to the nature of approach, it can only be used with interpreted languages and will not accelerate builds related to modifications in development artifacts that are not source code.
 
+Huang et al. \cite{huangFastBuildAcceleratingDocker2019} and Harter et al. \cite{harterSlackerFastDistribution} address the network bottleneck in different ways. The former caches files locally and intercepts Docker's network requests in order to serve files that have been stored locally. The latter proposes a new storage driver that lazily fetches files from the network. Both show promising results and do not address other inefficiencies in the Docker building process.
+
+The works described so far interfere with the normal Docker build procedures, making them harder to implement. Another solution is offered by the Docker development team, Buildx \cite{DockerBuildx2022}. Buildx makes use of a newer backend, BuildKit \cite{BuildKit2022}, which brings many features that can potentially accelerate docker builds. However, to our knowledge, an apples to apples time comparison has not been made. Implementing this in Dockerlive wouldn't be very hard but because the output of the buildx command is different, some modifications would still be required.
 
 \section{Dockerfile Generation} \label{dockerfile_generation}
 \section{Dockerfile Smells} \label{dockerfile_smells}
