@@ -49,7 +49,7 @@ Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompo
     \label{tab:works_dockerfile_generation}
 \end{table}
 
-Zhong et al. \cite{zhongBurnerRecipeAutomatic2022}, Ye et al. \cite{yeDockerGenKnowledgeGraph2021} and Horton et at. \cite{hortonDockerizeMeAutomaticInference2019} present solutions that require pre-existing knowledge bases in order to generate the files, making them hard to implement in a project like ours, which is not completely focused on file generation. DockerizeMe is also limited to Python environments, while Burner is more focused on Singularity \cite{Apptainer}, a containerization tool similar to Docker but focused on HPC (High Performance Computing).
+Zhong et al. \cite{zhongBurnerRecipeAutomatic2022}, Ye et al. \cite{yeDockerGenKnowledgeGraph2021} and Horton et al. \cite{hortonDockerizeMeAutomaticInference2019} present solutions that require pre-existing knowledge bases in order to generate the files, making them hard to implement in a project like ours, which is not completely focused on file generation. DockerizeMe is also limited to Python environments, while Burner is more focused on Singularity \cite{Apptainer}, a containerization tool similar to Docker but focused on HPC (High Performance Computing).
 
 Caturano et al. \cite{caturanoExploitWP2DockerPlatformAutomating2022} propose a tool that uses Docker to generate security testing environments from exploit descriptions. Sorgalla et al. \cite{sorgallaApplyingModelDrivenEngineering2021}'s work can generate Dockerfiles from models, which are generated from Open API Specifications (like Swagger \cite{Swagger}). Kehrer et al. \cite{kehrerContainerBasedModuleIsolation2019} use Apache FreeMarker \cite{ApacheFreeMarker} to generate Dockerfiles from templates. McMillan et al. \cite{mcmillanMAKINGCONTAINERSEASIER} offer a tool that allows developer to use Python code to define the information required to generate Dockerfiles.
 
@@ -67,7 +67,6 @@ Smells are commonly found in Dockerfiles \cite{wuCharacterizingOccurrenceDockerf
         \hline An empirical study on self-admitted technical debt in Dockerfiles \cite{azumaEmpiricalStudySelfadmitted2022} & SATD & Shows that a type of smell appears in Dockerfiles and can be divided into several classes and subclasses & High \\
         \hline Characterizing the Occurrence of Dockerfile Smells in Open-Source Software: An Empirical Study \cite{wuCharacterizingOccurrenceDockerfile2020} & All & Smells appear commonly in projects and the frequency with which they appear varies according to several metrics & High \\
         \hline Dockerfile TF Smell Detection Based on Dynamic and Static Analysis Methods \cite{xuDockerfileTFSmell2019} & Temporary File & It's possible to detect the smell with high accuracy using static and dynamic analysis & Medium \\
-        \hline Refactorings and Technical Debt for Docker Projects \cite{ksontiniRefactoringsTechnicalDebt} & All & Docker related refactorings happen for a variety of reasons & High \\
         \hline
     \end{tabular} 
     \caption{Works about Dockerfile smells}
@@ -80,9 +79,23 @@ Azuma et al. \cite{azumaEmpiricalStudySelfadmitted2022} focus on a variation of 
 
 Wu et al. \cite{wuCharacterizingOccurrenceDockerfile2020} analyzed a large amount of open-source projects and found that Dockerfile smells are very common and their frequency changes according to several factors like the programming language used by the project or the project's age. Due to the variety of smells covered by this study implementing repairs to deal with all of them would be difficult. 
 
-Ksontini et at. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings (a concept which is closely tied to smells) and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
-
 \section{Dockerfile Good Practices} \label{sec:dockerfile_good_practices}
+
+To prevent the creation of smells like the ones mentioned in Section \ref{sec:dockerfile_smells}, a developer should follow good practices. This section goes over works that cover these practices. Our findings are summarized in Table \ref{tab:works_dockerfile_good_practices}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.25\textwidth}|c|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Practices} & \textbf{Limitations} & \textbf{Practices that could be implemented} \\
+        \hline Learning from, Understanding, and Supporting DevOps Artifacts for Docker \cite{henkelLearningUnderstandingSupporting2020} & Related to usage of package managers and command line utilities (gold rules) & No inherent repair functionality & All of them \\
+        \hline Security Misconfigurations Detection and Repair in Dockerfile \cite{prinettoSecurityMisconfigurationsDetection} & ??? & ??? & ??? \\
+        \hline Ten simple rules for writing Dockerfiles for reproducible data science \cite{nustTenSimpleRules2020} & ??? & ??? & ??? \\
+        \hline
+    \end{tabular} 
+    \caption{Works about Dockerfile good practices}
+    \label{tab:works_dockerfile_good_practices}
+\end{table}
+
 \section{Dockerfile Security} \label{sec:dockerfile_security}
 \section{Dockerfile Repair} \label{sec:dockerfile_repair}
 \section{Dockerfile Bloat} \label{sec:dockerfile_bloat}
@@ -92,3 +105,5 @@ Ksontini et at. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings
 
 
 \section{General Discussion} \label{sec:general_discussion}
+
+Ksontini et al. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings (a concept which is closely tied to smells) and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
