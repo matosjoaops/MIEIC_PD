@@ -1,10 +1,10 @@
 \chapter{Repairing and Generating Dockerfiles (title is WIP)} \label{chap:sota}
 
-This section covers existing literature and tools that are related to several components of the Dockerfile development experience and Docker in general. Section \ref{background} goes over the background that is required to understand this paper. Section \ref{speeding_up_docker_builds} goes over ways to accelerate Docker builds. Section \ref{dockerfile_generation} goes over works that cover the generation of Dockerfiles. Section \ref{dockerfile_smells} covers smells in Dockerfiles. Section \ref{dockerfile_good_practices} talks about good practices that should be taken into account when writing Dockerfiles. Section \ref{dockerfile_security} tackles the topic of security in Dockerfiles. Section \ref{dockerfile_repair} covers the detection and repair of faults in Dockerfiles. Section \ref{dockerfile_bloat} covers the detection and removal of bloat in Dockerfiles. Section \ref{dockerfile_testing} is about testing Dockerfiles. Section \ref{general_discussion} concludes with a general discussion.
+This section covers existing literature and tools that are related to several components of the Dockerfile development experience and Docker in general. Section \ref{sec:background} goes over the background that is required to understand this paper. Section \ref{sec:speeding_up_docker_builds} goes over ways to accelerate Docker builds. Section \ref{sec:dockerfile_generation} goes over works that cover the generation of Dockerfiles. Section \ref{sec:dockerfile_smells} covers smells in Dockerfiles. Section \ref{sec:dockerfile_good_practices} talks about good practices that should be taken into account when writing Dockerfiles. Section \ref{sec:dockerfile_security} tackles the topic of security in Dockerfiles. Section \ref{sec:dockerfile_repair} covers the detection and repair of faults in Dockerfiles. Section \ref{sec:dockerfile_bloat} covers the detection and removal of bloat in Dockerfiles. Section \ref{sec:dockerfile_testing} is about testing Dockerfiles. Section \ref{sec:general_discussion} concludes with a general discussion.
 
-\section{Background} \label{background}
+\section{Background} \label{sec:background}
 ...
-\section{Speeding up Docker builds} \label{speeding_up_docker_builds}
+\section{Speeding up Docker builds} \label{sec:speeding_up_docker_builds}
 
 Building Docker images can take a considerable amount of time, especially when a large amount of files have to be fetched from the internet ~\citep{harterSlackerFastDistribution}. Therefore, we looked for ways to reduce the amount of time consumed by this activity. Our findings are summarized in Table \ref{tab:works_speeding_up}.
 
@@ -28,135 +28,67 @@ Huang et al. \cite{huangFastBuildAcceleratingDocker2019} and Harter et al. \cite
 
 The works described so far interfere with the normal Docker build procedures, making them harder to implement. Another solution is offered by the Docker development team, Buildx \cite{DockerBuildx2022}. Buildx makes use of a newer backend, BuildKit \cite{BuildKit2022}, which brings many features that can potentially accelerate docker builds. However, to our knowledge, an apples to apples time comparison has not been made. Implementing this in Dockerlive wouldn't be very hard but because the output of the buildx command is different, some modifications would still be required.
 
-\section{Dockerfile Generation} \label{dockerfile_generation}
-\section{Dockerfile Smells} \label{dockerfile_smells}
-\section{Dockerfile Good Practices} \label{dockerfile_good_practices}
-\section{Dockerfile Security} \label{dockerfile_security}
-\section{Dockerfile Repair} \label{dockerfile_repair}
-\section{Dockerfile Bloat} \label{dockerfile_bloat}
-\section{Dockerfile Testing} \label{dockerfile_testing}
+\section{Dockerfile Generation} \label{sec:dockerfile_generation}
+
+Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompose2022}. Therefore, having a way to generate a Dockerfile for a given project can be very useful. In this section, we looked for works that showcased ways to accomplish this. Our findings are summarized in Table \ref{tab:works_dockerfile_generation}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.25\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Successful generation rate} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
+        \hline Applying Model-Driven Engineering to Stimulate the Adoption of DevOps Processes in Small and Medium-Sized Development Organizations \cite{sorgallaApplyingModelDrivenEngineering2021} & Unknown & An Open API Spec is required & Medium \\
+        \hline Burner: Recipe Automatic Generation for HPC Container Based on Domain Knowledge Graph \cite{zhongBurnerRecipeAutomatic2022} & Up to 80\% & A vast knowledge graph is required, focused on Singularity & High \\
+        \hline Container-Based Module Isolation for Cloud Services \cite{kehrerContainerBasedModuleIsolation2019} & Unknown & Requires the use of templates to generate the files & Medium-High \\
+        \hline DockerGen: A Knowledge Graph based Approach for Software Containerization \cite{yeDockerGenKnowledgeGraph2021} & Up to 73\% & A vast knowledge graph is required & High \\
+        \hline DockerizeMe: Automatic Inference of Environment Dependencies for Python Code Snippets \cite{hortonDockerizeMeAutomaticInference2019} & Up to 30\% & Limited to Python, requires a knowledge base & High \\
+        \hline ExploitWP2Docker: a Platform for Automating the Generation of Vulnerable WordPress Environments for Cyber Ranges \cite{caturanoExploitWP2DockerPlatformAutomating2022} & Up to 39\% & Limited to security testing scenarios & Low-Medium \\
+        \hline MAKING CONTAINERS EASIER WITH HPC CONTAINER MAKER \cite{mcmillanMAKINGCONTAINERSEASIER} & Unknown & Requires Python code to generate the files & Medium-High \\
+        \hline
+    \end{tabular} 
+    \caption{Works about generating Dockerfiles}
+    \label{tab:works_dockerfile_generation}
+\end{table}
+
+Zhong et al. \cite{zhongBurnerRecipeAutomatic2022}, Ye et al. \cite{yeDockerGenKnowledgeGraph2021} and Horton et at. \cite{hortonDockerizeMeAutomaticInference2019} present solutions that require pre-existing knowledge bases in order to generate the files, making them hard to implement in a project like ours, which is not completely focused on file generation. DockerizeMe is also limited to Python environments, while Burner is more focused on Singularity \cite{Apptainer}, a containerization tool similar to Docker but focused on HPC (High Performance Computing).
+
+Caturano et al. \cite{caturanoExploitWP2DockerPlatformAutomating2022} propose a tool that uses Docker to generate security testing environments from exploit descriptions. Sorgalla et al. \cite{sorgallaApplyingModelDrivenEngineering2021}'s work can generate Dockerfiles from models, which are generated from Open API Specifications (like Swagger \cite{Swagger}). Kehrer et al. \cite{kehrerContainerBasedModuleIsolation2019} use Apache FreeMarker \cite{ApacheFreeMarker} to generate Dockerfiles from templates. McMillan et al. \cite{mcmillanMAKINGCONTAINERSEASIER} offer a tool that allows developer to use Python code to define the information required to generate Dockerfiles.
+
+All these works show varying degrees of success and some of them are not even focused on the Dockerfile generation aspect.
+
+\section{Dockerfile Smells} \label{sec:dockerfile_smells}
+
+Smells are commonly found in Dockerfiles \cite{wuCharacterizingOccurrenceDockerfile2020}, making it important to create ways of detecting and, if possible, remove them. This section covers works related to this. Our findings are summarized in Table \ref{tab:works_dockerfile_smells}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.25\textwidth}|c|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Smells} & \textbf{Findings} & \textbf{Possible repair implementation complexity} \\
+        \hline An Empirical Case Study on the Temporary File Smell in Dockerfiles \cite{luEmpiricalCaseStudy2019} & Temporary File & The smell is quite common and can be divided into 4 different types, 3 of which can be detected through the proposed methods & Medium \\
+        \hline An empirical study on self-admitted technical debt in Dockerfiles \cite{azumaEmpiricalStudySelfadmitted2022} & SATD & Shows that a type of smell appears in Dockerfiles and can be divided into several classes and subclasses & High \\
+        \hline Characterizing the Occurrence of Dockerfile Smells in Open-Source Software: An Empirical Study \cite{wuCharacterizingOccurrenceDockerfile2020} & All & Smells appear commonly in projects and the frequency with which they appear varies according to several metrics & High \\
+        \hline Dockerfile TF Smell Detection Based on Dynamic and Static Analysis Methods \cite{xuDockerfileTFSmell2019} & Temporary File & It's possible to detect the smell with high accuracy using static and dynamic analysis & Medium \\
+        \hline Refactorings and Technical Debt for Docker Projects \cite{ksontiniRefactoringsTechnicalDebt} & All & Docker related refactorings happen for a variety of reasons & High \\
+        \hline
+    \end{tabular} 
+    \caption{Works about Dockerfile smells}
+    \label{tab:works_dockerfile_smells}
+\end{table}
+
+Lu et al. \cite{luEmpiricalCaseStudy2019} and Xu et al. \cite{xuDockerfileTFSmell2019} have focused on the temporary file smell and propose ways to detect this smell. A repair to deal with this smell could be implemented using the information provided by these works.
+
+Azuma et al. \cite{azumaEmpiricalStudySelfadmitted2022} focus on a variation of smells they call SATD (self-admitted technical debt) which can be detected in comments written in the Dockerfiles. Due to the nature of these SATDs, implementing repairs to eliminate them could be very complicated.
+
+Wu et al. \cite{wuCharacterizingOccurrenceDockerfile2020} analyzed a large amount of open-source projects and found that Dockerfile smells are very common and their frequency changes according to several factors like the programming language used by the project or the project's age. Due to the variety of smells covered by this study implementing repairs to deal with all of them would be difficult. 
+
+Ksontini et at. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings (a concept which is closely tied to smells) and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
+
+\section{Dockerfile Good Practices} \label{sec:dockerfile_good_practices}
+\section{Dockerfile Security} \label{sec:dockerfile_security}
+\section{Dockerfile Repair} \label{sec:dockerfile_repair}
+\section{Dockerfile Bloat} \label{sec:dockerfile_bloat}
+\section{Dockerfile Testing} \label{sec:dockerfile_testing}
 
 
 
 
-\section{General Discussion} \label{general_discussion}
-
-% Neste capítulo é ilustrada a introdução de entradas no índice
-% remissivo e são feitas citações para a bibliografia.
-
-% Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec a
-% eros. Phasellus non nulla non massa venenatis convallis. In
-% porta. Mauris quis magna. 
-
-% \section{Introdução}
-
-% Neste capítulo usa-se texto de um artigo apresentado na Conferência
-% XATA2006~\citep{kn:MVL06-xata}.
-
-% Nos últimos tempos têm surgido diversas soluções, apresentadas por
-% empresas do sector Auto\-ma\-ção de Sistemas para a disponibilização de
-% sistemas \scadadms{} na \textit{Web}.
-
-% Fusce risus mi, tristique eu, consectetuer id, auctor sed, elit. Donec
-% laoreet. Duis consectetuer interdum libero. Etiam eu orci. In eu
-% arcu. Fusce luctus diam eget lectus. Duis interdum lacus sed
-% ligula. Proin vestibulum felis eget lacus. Vivamus vestibulum, tellus
-% ut congue viverra, mauris lacus tempor turpis, eu congue nisi magna at
-% dolor. Ut molestie vehicula libero. Praesent in neque sed risus tempus
-% ornare. Donec hendrerit, erat eu semper aliquam, pede nulla dapibus
-% risus, ut pretium orci pede et neque.
-% Etiam eget tortor a metus convallis viverra. Quisque eget nisi sed
-% orci facilisis interdum. Aliquam non felis. 
-
-% \section{Secção Exemplo}\label{sec:dialecto}
-
-% \emph{Scalable Vector Graphics}\index{SVG}\index{XML!SVG} é uma
-% linguagem em formato XML que descreve gráficos de duas dimensões. 
-% Este formato padronizado pela W3C (\emph{World Wide Web Consortium})
-% é livre de patentes ou direitos de autor e está totalmente
-% documentado, à semelhança de outros W3C
-% standards~\citep{kn:svgdoc}.
-
-% Sendo uma linguagem XML, o \svg{} herda uma série de vantagens: a
-% possibilidade de transformar \svg{} usando técnicas como
-% XSLT\index{XML!XSLT}, de embeber \svg{} em qualquer documento
-% XML\index{XML} usando \textit{namespaces} ou até de  
-% estilizar \svg{} recorrendo a CSS\index{CSS} (\emph{Cascade Style Sheets}). 
-% De uma forma geral, pode dizer-se que \svg{}s interagem bem com as
-% atuais tecnologias ligadas ao XML e à Web, tal como referido
-% em~\citep{kn:svgibm,kn:svgw3c}.
-
-% Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec a
-% eros. Phasellus non nulla non massa venenatis convallis. In
-% porta. Mauris quis magna. Proin mauris eros, aliquet id, eleifend
-% vitae, semper quis, erat. Aliquam id lectus non odio dignissim
-% blandit. Vestibulum porttitor arcu ut ligula. Nunc quis
-% erat. Curabitur ipsum tortor, ornare vitae, dapibus pretium, hendrerit
-% sed, urna. Vestibulum ante ipsum primis in faucibus orci luctus et
-% ultrices posuere cubilia Curae; Phasellus bibendum, nulla eget varius
-% aliquam, tortor nulla sollicitudin quam, vel vestibulum nisl magna at
-% sem. Aliquam velit sapien, ultrices viverra, tempus quis, ultrices at,
-% dui. Aliquam sit amet justo. Quisque tristique, metus eu iaculis
-% sagittis, urna leo bibendum diam, a ultricies sem diam a augue. Mauris
-% consectetuer, libero vel euismod tincidunt, nisi metus viverra ante,
-% quis pretium sapien odio nec risus. Nunc semper auctor
-% nulla\footnote{Exemplo de nota de rodapé.}. 
-
-% \subsection{Subsecção Exemplo} \label{batik} 
-
-% Batik é um conjunto de bibliotecas baseadas em \textit{Java} que
-% permitem o uso de imagens \svg{} (visualização, geração ou
-% manipulação) em aplicações ou \textit{applets}~\citep{kn:batik}.  
-% O projeto Batik\index{Batik} destina-se a fornecer ao programador
-% alguns módulos que permitem desenvolver soluções especificas usando
-% \svg~\citep{kn:svgdoc}. 
-
-% Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nunc eu
-% nulla. Pellentesque vitae nibh ultrices quam iaculis
-% convallis. Aliquam purus eros, varius eget, volutpat sodales,
-% imperdiet nec, lacus. Curabitur in elit sed sem rutrum posuere. Class
-% aptent taciti sociosqu ad litora torquent per conubia nostra, per
-% inceptos himenaeos. Duis sem. Praesent ultricies odio vel
-% sapien. Integer faucibus malesuada libero. Cras semper, dolor id
-% ullamcorper varius, magna risus volutpat felis, id pellentesque nulla
-% ante at erat. Integer sodales. 
-
-% Quisque sit amet odio. In at risus sit amet turpis interdum
-% posuere. Maecenas iaculis vehicula sem. Ut leo arcu, malesuada vel,
-% imperdiet id, dignissim a, purus. Duis eleifend, lectus non venenatis
-% dignissim, risus libero imperdiet mi, nec gravida massa libero sed
-% mauris. Nullam lobortis libero non sapien. Integer convallis iaculis
-% erat. Morbi dictum. Ut ultrices pellentesque velit. Cras ac
-% ante. Etiam in neque tincidunt lacus gravida vehicula. Proin et nisi. 
-
-% Vivamus non nunc nec risus tempor varius. Quisque bibendum mi at
-% dolor. Aliquam consectetuer condimentum risus. Aliquam luctus pulvinar
-% sem. Duis aliquam, urna et vulputate tristique, dui elit aliquet nibh,
-% vel dignissim magna turpis id sapien. Duis commodo sem id
-% quam. Phasellus dolor. Class aptent taciti sociosqu ad litora torquent
-% per conubia nostra, per inceptos himenaeos. 
-
-% \subsection{Subsecção Exemplo}
-
-% Loren ipsum dolor sit amet, consectetuer adipiscing elit. 
-% Praesent sit amet sem. Maecenas eleifend facilisis leo. Vestibulum et
-% mi. Aliquam posuere, ante non tristique consectetuer, dui elit
-% scelerisque augue, eu vehicula nibh nisi ac est. Suspendisse elementum
-% sodales felis. Nullam laoreet fermentum urna. 
-
-% Duis eget diam. In est justo, tristique in, lacinia vel, feugiat eget,
-% quam. Pellentesque habitant morbi tristique senectus et netus et
-% malesuada fames ac turpis egestas. Fusce feugiat, elit ac placerat
-% fermentum, augue nisl ultricies eros, id fringilla enim sapien eu
-% felis. Vestibulum ante ipsum primis in faucibus orci luctus et
-% ultrices posuere cubilia Curae; Sed dolor mi, porttitor quis,
-% condimentum sed, luctus in. 
-
-% \section{Resumo ou Conclusões}
-
-% Aliquam erat volutpat. Nunc pede ipsum, porttitor eu, bibendum non,
-% bibendum nec, nisl. Maecenas eget mauris. Nullam pulvinar. Curabitur
-% rutrum commodo est. Nam sapien pede, interdum eu, accumsan ultrices,
-% venenatis sit amet, tellus. Praesent ac ante bibendum enim varius
-% suscipit. Donec enim. Proin nisi. Quisque libero turpis, varius ut,
-% elementum vel, pulvinar sed, nunc. 
+\section{General Discussion} \label{sec:general_discussion}
