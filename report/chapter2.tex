@@ -159,6 +159,32 @@ Prinetto et al. \cite{prinettoSecurityMisconfigurationsDetection} found that sec
 Implementing repairs that address most of the problems and vulnerabilities found by these works should be possible. It may even be possible to use some of the proposed approaches.
 
 \section{Dockerfile Repair} \label{sec:dockerfile_repair}
+
+Like the previous sections have shown, the average Dockerfile has several problems and it can be difficult for a developer to figure out how to deal with those issues in an optimal way. This makes it important to create tools that can assist developers in the repair process. This section goes over works that do that (although other sections also discuss works that perform repairs that are related to more specific scenarios). Our findings are summarized in Table \ref{tab:works_dockerfile_repair}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Performed repair} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
+        \hline Latest Image Recommendation Method for Automatic Base Image Update in Dockerfile \cite{kitajimaLatestImageRecommendation2020} & Base image update & Does not cover other parts of the Dockerfile & Medium \\
+        \hline Learning from, Understanding, and Supporting DevOps Artifacts for Docker \cite{henkelLearningUnderstandingSupporting2020} & Enforcing the gold rules by detecting violations & Does not perform the repair, only helps detect places where they should be performed & Medium \\
+        \hline RUDSEA: recommending updates of Dockerfiles via software environment analysis \cite{hassanRUDSEARecommendingUpdates2018} & Updates portions of the source code which are tied to values in the source code & Does not cover parts other parts of the Dockerfile & Medium-High \\
+        \hline Shipwright: A Human-in-the-Loop System for Dockerfile Repair \cite{henkelShipwrightHumanintheLoopSystem2021} & Repairs that deal with some functional problems & Some of the repairs listed can only be applied to some projects & Medium \\
+        \hline Supporting micro-services deployment in a safer way: a static analysis and automated rewriting approach \cite{benniSupportingMicroservicesDeployment2018} & Reducing the number of layers in the image to take advantage of layer caching & Small number of repairs & Low-Medium \\
+        \hline
+    \end{tabular} 
+    \caption{Works about Dockerfile repair}
+    \label{tab:works_dockerfile_repair}
+\end{table}
+
+Kitajima et al. \cite{kitajimaLatestImageRecommendation2020} focused on updating a container's base image by analyzing the available tags, while Hassan et al. \cite{hassanRUDSEARecommendingUpdates2018} focused on portions of the Dockerfile which are tied to values in the source code.
+
+Henkel et al. \cite{henkelLearningUnderstandingSupporting2020} offers a way to detect violations of the gold rules they obtained but don't automate the repair of said violations. Henkel et al. \cite{henkelShipwrightHumanintheLoopSystem2021} also proposes a different approach for automating repairs, although most of the repairs listed here are specific to certain programming languages or package managers.
+
+Benni et al. \cite{benniSupportingMicroservicesDeployment2018} describe a way to reduce the number of layers in Dockerfiles in order to take advantage of layer caching.
+
+Implementing the repairs mentioned in this section should be possible, although these implementations would have varying degrees of complexity.
+
 \section{Dockerfile Bloat} \label{sec:dockerfile_bloat}
 \section{Dockerfile Testing} \label{sec:dockerfile_testing}
 \section{General Discussion} \label{sec:general_discussion}
