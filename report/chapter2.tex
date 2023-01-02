@@ -2,11 +2,26 @@
 
 This section covers existing literature and tools that are related to several components of the Dockerfile development experience and Docker in general. Section \ref{sec:background} goes over the background that is required to understand this paper. Section \ref{sec:speeding_up_docker_builds} goes over ways to accelerate Docker builds. Section \ref{sec:dockerfile_generation} goes over works that cover the generation of Dockerfiles. Section \ref{sec:dockerfile_smells} covers smells in Dockerfiles. Section \ref{sec:dockerfile_good_practices} talks about good practices that should be taken into account when writing Dockerfiles. Section \ref{sec:dockerfile_security} tackles the topic of security in Dockerfiles. Section \ref{sec:dockerfile_repair} covers the detection and repair of faults in Dockerfiles. Section \ref{sec:dockerfile_bloat} covers the detection and removal of bloat in Dockerfiles. Section \ref{sec:dockerfile_testing} is about testing Dockerfiles. Section \ref{sec:general_discussion} concludes with a general discussion.
 
+\todo{Estes parágrafos deviam sobretudo fazer uma introdução ao capítulo, e ligação com o capítulo anterior. Listar as subsecções e dizer o que elas contêem não tem muito interesse, estas secções podem é explicar melhor de que forma é que as várias secções se relacionam. Mesmo assim, neste caso, como são muitas, fica um pouco maçudo, e acho que não acrescenta muito para o leitor.}
+
 \section{Background} \label{sec:background}
 ...
+
+\section{Goals and methodology}
+
+\todo{Sugiro que incluas aqui um pouco sobre os objetivos desta revisão de literatura. As RQs da revisão de literatura apareceriam aqui. Além dessas perguntas, fala também um pouco do processo que seguiste para lhes tentar dar resposta, incluindo onde pesquisaste, que queries usaste, quais foram os teus critérios de inclusão/exclusão de resultados, etc.}
+
+\todo{Sobre as secções que se seguem: cada uma delas endereça um "challenge" diferente no desenvolvimento de dockerfiles, certo? Antes de falares de cada um deste tópicos seria bom ficar mais claro de onde/porque é que aqui aparecem. Talvez a melhor abordagem seja incluires uma nova secção antes das que vêm a seguir, chamada "Challenges in the development of Dockerfiles", ou algo semelhante, que olhe para a literatura e identifique o top dos challenges mais relevantes.}
+
 \section{Speeding up Docker builds} \label{sec:speeding_up_docker_builds}
 
 Building Docker images can take a considerable amount of time, especially when a large amount of files have to be fetched from the internet ~\citep{harterSlackerFastDistribution}. Therefore, we looked for ways to reduce the amount of time consumed by this activity. Our findings are summarized in Table \ref{tab:works_speeding_up}.
+
+\todo{ways -> approaches}
+
+\todo{Dependendo do que disseres acima sobre quais foram as queries que usaste, pode não fazer sentido aqui dizeres que procuraste especificamente por abordagens de aceleração do build. A ver...}
+
+\todo{A não ser que já o tenhas dito antes (a secção de "Goals ..." acima pode ser um sítio melhor até!) era importante começar esta secção explicando qual é o interesse/importância/relevância para o teu trabalho em fazer esta análise.}
 
 \begin{table}[H]
     \centering
