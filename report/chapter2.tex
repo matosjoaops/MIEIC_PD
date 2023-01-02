@@ -37,6 +37,8 @@ Building Docker images can take a considerable amount of time, especially when a
     \label{tab:works_speeding_up}
 \end{table}
 
+\todo{Na tabela tens uma coluna sobre complexidade de implementação que é muito subjetiva. Melhor do que isso seria usares colunas com coisas objetivas mas que te permitam  concluir sobre a complexidade no texto que acompanha a tabela.}
+
 Wang et al. \cite{wangCodeInjectionMethod2019} propose a technique that bypasses typical building procedures by injecting the code modifications directly in an image. The results are very promising. However, due to the nature of approach, it can only be used with interpreted languages and will not accelerate builds related to modifications in development artifacts that are not source code.
 
 Huang et al. \cite{huangFastBuildAcceleratingDocker2019} and Harter et al. \cite{harterSlackerFastDistribution} address the network bottleneck in different ways. The former caches files locally and intercepts Docker's network requests in order to serve files that have been stored locally. The latter proposes a new storage driver that lazily fetches files from the network. Both show promising results and do not address other inefficiencies in the Docker building process.
@@ -46,6 +48,10 @@ The works described so far interfere with the normal Docker build procedures, ma
 \section{Dockerfile Generation} \label{sec:dockerfile_generation}
 
 Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompose2022}. Therefore, having a way to generate a Dockerfile for a given project can be very useful. In this section, we looked for works that showcased ways to accomplish this. Our findings are summarized in Table \ref{tab:works_dockerfile_generation}.
+
+\todo{No parágrafo anterior, "easy" não parece ser o melhor adjetivo --- fácil comparaticamente com quê? No artigo que citas estávamos interessados sobretudo em aferir quão mais trabalhosas eram umas atividades \textbf{comparaticamente com outras}. Este "easy" não tem uma base de comparação tão clara.}
+
+\todo{As duas primeiras frases que aqui tens estão a servir essencialmente para motivar a importancia do que vais falar nesta secção. Algo que pode ajudar mais a fazer isso é definires bem os objetivos de todo este capítulo (com as perguntas, secção sobre os challenges, etc. Ver o que escrevi acima).}
 
 \begin{table}[H]
     \centering
@@ -63,6 +69,10 @@ Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompo
     \caption{Works about generating Dockerfiles}
     \label{tab:works_dockerfile_generation}
 \end{table}
+
+\todo{Se a memória não me falha, o DockerizeMe só fuciona para snippets, e não para um sistema completo.}
+
+\todo{A coluna sobre a complexidade é um pouco subjetiva...}
 
 Zhong et al. \cite{zhongBurnerRecipeAutomatic2022}, Ye et al. \cite{yeDockerGenKnowledgeGraph2021} and Horton et al. \cite{hortonDockerizeMeAutomaticInference2019} present solutions that require pre-existing knowledge bases in order to generate the files, making them hard to implement in a project like ours, which is not completely focused on file generation. DockerizeMe is also limited to Python environments, while Burner is more focused on Singularity \cite{Apptainer}, a containerization tool similar to Docker but focused on HPC (High Performance Computing).
 
@@ -87,6 +97,8 @@ Smells are commonly found in Dockerfiles \cite{wuCharacterizingOccurrenceDockerf
     \caption{Works about Dockerfile smells}
     \label{tab:works_dockerfile_smells}
 \end{table}
+
+\todo{Mais do que listar/caracterizar artigos, idealmente estas tabelas seriam sobre as coisas que te interessam encontrar. Por exemplo, nesta secção estás interessado é nos smells, logo, acho que faria mais sentido ser uma tabela de smells, em que indicavas o artigo em que o encontraste (em vez de uma tabela de artigos em que indicas os smells, estou a fazer sentido?). A mesma ideia é aplicável às outras secções.}
 
 Lu et al. \cite{luEmpiricalCaseStudy2019} and Xu et al. \cite{xuDockerfileTFSmell2019} have focused on the temporary file smell and propose ways to detect this smell. A repair to deal with this smell could be implemented using the information provided by these works.
 
@@ -152,3 +164,5 @@ Implementing repairs that address most of the problems and vulnerabilities found
 \section{General Discussion} \label{sec:general_discussion}
 
 Ksontini et al. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings (a concept which is closely tied to smells) and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
+
+\todo{Seria aqui um bom sítio onde responder de forma mais explícita às perguntas que colocamos no início do capítulo.}
