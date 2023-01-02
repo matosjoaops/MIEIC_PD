@@ -103,13 +103,37 @@ Prinetto et al. \cite{prinettoSecurityMisconfigurationsDetection} looked for fla
 Nust et al. \cite{nustTenSimpleRules2020} propose a list of 10 rules developers should follow when writing Dockerfiles for data science environments. Some of these rules are applicable to other scenarios and 2 of those could be implemented as repairs.
 
 \section{Dockerfile Security} \label{sec:dockerfile_security}
+
+Nowadays, security is a topic that is heavily discussed and deserves a great amount of attention from developers. However, security problems are still commonly found in Dockerfiles \cite{doanDAVSDockerfileAnalysis2022} and many developers do not have the knowledge required to evaluate how vulnerable their containers are \cite{zareiInvestigatingInnerWorkings2022}. For these reasons, it's important to study Docker containers from a security perspective, which is what this section focuses on. Our findings are summarized in Table \ref{tab:works_dockerfile_security}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.27\textwidth}|p{0.3\textwidth}|p{0.3\textwidth}|}
+        \hline \textbf{Name} & \textbf{Findings} & \textbf{Implementation notes} \\
+        \hline DAVS: Dockerfile Analysis for Container Image Vulnerability Scanning \cite{doanDAVSDockerfileAnalysis2022} & DAVS can detect more vulnerabilities than competing scanners & It should be possible to repair some of the mentioned vulnerabilities, although it would be easier to use existing scanners \\
+        \hline Investigating the inner workings of container image vulnerability scanners \cite{zareiInvestigatingInnerWorkings2022} & Many scanners use the same methods to detect vulnerabilities, which have limitations & Using one of these scanners could be useful \\
+        \hline Outdated software in container images \cite{linnalampiOutdatedSoftwareContainer2021} & Having outdated software in containers brings security problems and there are limitations to what current scanners can detect, new detection method is proposed & It should be possible to implement some repair to try to address this situation \\
+        \hline Security Analysis of Code Bloat in Machine Learning Systems \cite{ahmedSecurityAnalysisCode2022} & Removing bloat from containers used in machine learning environments can considerably improve security & It should be possible to implement some repairs that reduce bloat \\
+        \hline Security Misconfigurations Detection and Repair in Dockerfile \cite{prinettoSecurityMisconfigurationsDetection} & Security problems are common in containers, a way to repair them is proposed & It might be possible to implement the proposed technique to repair the problems \\
+        \hline
+    \end{tabular} 
+    \caption{Works about Dockerfile security}
+    \label{tab:works_dockerfile_security}
+\end{table}
+
+Doan et al. \cite{doanDAVSDockerfileAnalysis2022} propose DAVS (Dockerfile analysis-based vulnerability scanning), a tool that can detect potentially vulnerable files in containers. This approach allows them to detect more vulnerabilities than current scanners, which, according to Zarei et al. \cite{zareiInvestigatingInnerWorkings2022}, rely on information provided by distribution package managers. This information can be manipulated and, in some cases, may not even be available, which prevents scanners from detecting vulnerabilities.
+
+Ahmed et al. \cite{ahmedSecurityAnalysisCode2022} used Cimplifier \cite{rastogiCimplifierAutomaticallyDebloating2017} to debloat containers used in machine learning environments and found the amount of vulnerabilities present in those containers was significantly reduced.
+
+Linnalampi et al. \cite{linnalampiOutdatedSoftwareContainer2021} found that having outdated software introduces vulnerabilities in containers and propose a new method to detect vulnerabilities by analyzing the binaries present in containers to detect the software versions that are in use. This approach would address some of the limitations of current scanning techniques.
+
+Prinetto et al. \cite{prinettoSecurityMisconfigurationsDetection} found that security problems are common and propose a way to repair them by processing the Dockerfile to obtain the abstract syntax tree, find the vulnerabilities and modify the tree before reconverting into a file that is no longer vulnerable.
+
+Implementing repairs that address most of the problems and vulnerabilities found by these works should be possible. It may even be possible to use some of the proposed approaches.
+
 \section{Dockerfile Repair} \label{sec:dockerfile_repair}
 \section{Dockerfile Bloat} \label{sec:dockerfile_bloat}
 \section{Dockerfile Testing} \label{sec:dockerfile_testing}
-
-
-
-
 \section{General Discussion} \label{sec:general_discussion}
 
 Ksontini et al. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings (a concept which is closely tied to smells) and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
