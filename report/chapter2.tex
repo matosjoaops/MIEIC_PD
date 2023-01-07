@@ -1,6 +1,7 @@
 \chapter{Repairing and Generating Dockerfiles (title is WIP)} \label{chap:sota}
 
-This section covers existing literature and tools that are related to several components of the Dockerfile development experience and Docker in general. Section \ref{sec:background} goes over the background that is required to understand this paper. Section \ref{sec:speeding_up_docker_builds} goes over ways to accelerate Docker builds. Section \ref{sec:dockerfile_generation} goes over works that cover the generation of Dockerfiles. Section \ref{sec:dockerfile_smells} covers smells in Dockerfiles. Section \ref{sec:dockerfile_good_practices} talks about good practices that should be taken into account when writing Dockerfiles. Section \ref{sec:dockerfile_security} tackles the topic of security in Dockerfiles. Section \ref{sec:dockerfile_repair} covers the detection and repair of faults in Dockerfiles. Section \ref{sec:dockerfile_bloat} covers the detection and removal of bloat in Dockerfiles. Section \ref{sec:dockerfile_testing} is about testing Dockerfiles. Section \ref{sec:general_discussion} concludes with a general discussion.
+Now that we've introduced the problem this thesis revolves around it's time to go over the state of the art.
+This section covers existing literature and tools that are related to several components of the Dockerfile development experience and Docker in general. 
 
 \todo{Estes parágrafos deviam sobretudo fazer uma introdução ao capítulo, e ligação com o capítulo anterior. Listar as subsecções e dizer o que elas contêem não tem muito interesse, estas secções podem é explicar melhor de que forma é que as várias secções se relacionam. Mesmo assim, neste caso, como são muitas, fica um pouco maçudo, e acho que não acrescenta muito para o leitor.}
 
@@ -8,6 +9,35 @@ This section covers existing literature and tools that are related to several co
 ...
 
 \section{Goals and methodology}
+
+
+
+\begin{itemize}
+    \item \textbf{RQ1}: What are the challenges that developers face in the development of Dockerfiles?
+    \item \textbf{RQ2}: How have these challenges been addressed so far?
+\end{itemize}
+
+We used the following queries to look for information in Google Scholar \footref{footnote:google_scholar}:
+
+\begin{itemize}
+    \item dockerfile generation
+    \item distroless
+    \item docker build
+    \item dockerfile
+    \item dockerfile creation
+    \item dockerfile generator
+    \item dockerfile repair
+    \item docker repair
+    \item dockerfile readability
+    \item dockerfile evaluation
+    \item dockerfile analysis
+    \item docker bloat
+    \item docker build time
+    \item dockerfile practices
+    \item programming experience
+\end{itemize}
+
+\footnote{\label{footnote:google_scholar}Google Scholar, \href{https://scholar.google.com/}{https://scholar.google.com/}} 
 
 \todo{Sugiro que incluas aqui um pouco sobre os objetivos desta revisão de literatura. As RQs da revisão de literatura apareceriam aqui. Além dessas perguntas, fala também um pouco do processo que seguiste para lhes tentar dar resposta, incluindo onde pesquisaste, que queries usaste, quais foram os teus critérios de inclusão/exclusão de resultados, etc.}
 
