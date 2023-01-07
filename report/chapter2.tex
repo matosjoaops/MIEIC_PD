@@ -10,14 +10,14 @@ This section covers existing literature and tools that are related to several co
 
 \section{Goals and methodology}
 
-
+Our end goal is to help developers write Dockerfiles. To do this, we first need to know what challenges they face when writing Dockerfiles and how good are the Dockerfiles they create. Furthermore, we need to analyze current solutions that address these issues in order to build upon them. With this in mind, we came up with the following research questions:
 
 \begin{itemize}
     \item \textbf{RQ1}: What are the challenges that developers face in the development of Dockerfiles?
     \item \textbf{RQ2}: How have these challenges been addressed so far?
 \end{itemize}
 
-We used the following queries to look for information in Google Scholar \footnote{Google Scholar, \url{https://scholar.google.com/}}:
+To answer these questions we tried to find as much information as possible about Docker and Dockerfiles. Furthermore, we also tried to find works that analyzed a developer's subjective experience when performing development tasks. We ended up using the following queries to look for information in Google Scholar \footnote{Google Scholar, \url{https://scholar.google.com/}}:
 
 \begin{itemize}
     \item dockerfile generation
@@ -37,6 +37,10 @@ We used the following queries to look for information in Google Scholar \footnot
     \item programming experience
 \end{itemize}
 
+These queries gave us plenty of results, which had to be filtered to reach an amount that could be reasonably analyzed in the amount of time that we were given. We focused on works from the last few years that focused (at least partially) on Docker or Dockerfiles (instead of merely using Docker as a tool due to its convenience). We looked at the title and abstracts of the results to perform our selection and ended up with around 50 works to analyze. Most of these were analyzed, although some had to be excluded due to either time constraints or difficulty accessing the work. 
+
+\section{Challenges in the Development of Dockerfiles} \label{sec:challenges_development_dockerfiles}
+...
 
 \todo{Sugiro que incluas aqui um pouco sobre os objetivos desta revisão de literatura. As RQs da revisão de literatura apareceriam aqui. Além dessas perguntas, fala também um pouco do processo que seguiste para lhes tentar dar resposta, incluindo onde pesquisaste, que queries usaste, quais foram os teus critérios de inclusão/exclusão de resultados, etc.}
 
@@ -44,7 +48,7 @@ We used the following queries to look for information in Google Scholar \footnot
 
 \section{Speeding up Docker builds} \label{sec:speeding_up_docker_builds}
 
-Building Docker images can take a considerable amount of time, especially when a large amount of files have to be fetched from the internet ~\citep{harterSlackerFastDistribution}. Therefore, we looked for ways to reduce the amount of time consumed by this activity. Our findings are summarized in Table \ref{tab:works_speeding_up}.
+Building Docker images can take a considerable amount of time, especially when a large amount of files have to be fetched from the internet \cite{harterSlackerFastDistribution}. Therefore, we looked for ways to reduce the amount of time consumed by this activity. Our findings are summarized in Table \ref{tab:works_speeding_up}.
 
 \todo{ways -> approaches}
 
