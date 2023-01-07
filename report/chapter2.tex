@@ -10,7 +10,7 @@ This section covers existing literature and tools that are related to several co
 
 \section{Goals and methodology} \label{sec:goals_and_methodology}
 
-Our end goal is to help developers write Dockerfiles. To do this, we first need to know what challenges they face when writing Dockerfiles and how good are the Dockerfiles they create. Furthermore, we need to analyze current solutions that address these issues in order to build upon them. With this in mind, we came up with the following research questions:
+Our end goal is to help developers write Dockerfiles. To do this, we first need to know what challenges they face when writing Dockerfiles and how the quality of the Dockerfiles is affected by these challenges. Furthermore, we need to analyze current solutions that address these issues in order to build upon them. With this in mind, we came up with the following research questions:
 
 \begin{itemize}
     \item \textbf{RQ1}: What are the challenges that developers face in the development of Dockerfiles?
@@ -70,12 +70,12 @@ Building Docker images can take a considerable amount of time, especially when a
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.25\textwidth}|c|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Speedup} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
-        \hline A Code Injection Method for Rapid Docker Image Building \cite{wangCodeInjectionMethod2019} & Up to 100000x faster & Can only be used with interpreted languages, limited to modifications in the source code & High \\
-        \hline FastBuild: Accelerating Docker Image Building for Efficient Development and Deployment of Container \cite{huangFastBuildAcceleratingDocker2019} & Up to 10x faster & Limited to network activity & High \\
-        \hline Slacker: Fast Distribution with Lazy Docker Containers \cite{harterSlackerFastDistribution} & Up to 20x faster & Limited to network activity & High \\
-        \hline Docker Buildx \footnotemark{} & Unknown & Unknown & Low-Medium \\
+    \begin{tabular}{|p{0.17\textwidth}|p{0.1\textwidth}|p{0.13\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
+        \hline \textbf{Name} & \textbf{Speedup} & \textbf{Limitations} & \textbf{Interferes with normal Docker procedures?} & \textbf{Lines of code} & \textbf{Language used} & \textbf{Is the source code available?} \\
+        \hline A Code Injection Method for Rapid Docker Image Building \cite{wangCodeInjectionMethod2019} & Up to 100000x faster & Can only be used with interpreted languages, limited to modifications in the source code & Yes & Unknown & Unknown & No \\
+        \hline FastBuild: Accelerating Docker Image Building for Efficient Development and Deployment of Container \cite{huangFastBuildAcceleratingDocker2019} & Up to 10x faster & Limited to network activity & Yes & ~2600 & Go & No \\
+        \hline Slacker: Fast Distribution with Lazy Docker Containers \cite{harterSlackerFastDistribution} & Up to 20x faster & Limited to network activity & Yes & Unknown & Unknown & No \\
+        \hline Docker Buildx \footnotemark{} & Unknown & Unknown & No & Unknown & Go & Yes \\
         \hline
     \end{tabular}
     \caption{Works about speeding up Docker builds}
@@ -88,9 +88,9 @@ Building Docker images can take a considerable amount of time, especially when a
 
 Wang et al. \cite{wangCodeInjectionMethod2019} propose a technique that bypasses typical building procedures by injecting the code modifications directly in an image. The results are very promising. However, due to the nature of approach, it can only be used with interpreted languages and will not accelerate builds related to modifications in development artifacts that are not source code.
 
-Huang et al. \cite{huangFastBuildAcceleratingDocker2019} and Harter et al. \cite{harterSlackerFastDistribution} address the network bottleneck in different ways. The former caches files locally and intercepts Docker's network requests in order to serve files that have been stored locally. The latter proposes a new storage driver that lazily fetches files from the network. Both show promising results and do not address other inefficiencies in the Docker building process.
+Huang et al. \cite{huangFastBuildAcceleratingDocker2019} and Harter et al. \cite{harterSlackerFastDistribution} address the network bottleneck in different ways. The former caches files locally and intercepts Docker's network requests in order to serve files that have been stored locally. The latter proposes a new storage driver that lazily fetches files from the network. Both show promising results and do not address other inefficiencies in the Docker building process. FastBuild was implemented using around 2600 lines of Go code.
 
-The works described so far interfere with the normal Docker build procedures, making them harder to implement. Another solution is offered by the Docker development team, Buildx. Buildx makes use of a newer backend, BuildKit \footnote{Docker BuildKit, \url{https://docs.docker.com/build/buildkit/}}, which brings many features that can potentially accelerate docker builds. However, to our knowledge, an apples to apples time comparison has not been made. Implementing this in Dockerlive wouldn't be very hard but because the output of the buildx command is different, some modifications would still be required.
+The works described so far interfere with the normal Docker build procedures and do not have public source code for their tools. This makes them harder to implement. Another solution is offered by the Docker development team, Buildx. Buildx makes use of a newer backend, BuildKit \footnote{Docker BuildKit, \url{https://docs.docker.com/build/buildkit/}}, which brings many features that can potentially accelerate docker builds. However, to our knowledge, an apples to apples time comparison has not been made. Implementing this in Dockerlive wouldn't be very hard but because the output of the buildx command is different, some modifications would still be required.
 
 \section{Dockerfile Generation} \label{sec:dockerfile_generation}
 
