@@ -94,7 +94,7 @@ The works described so far interfere with the normal Docker build procedures and
 
 \section{Dockerfile Generation} \label{sec:dockerfile_generation}
 
-Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompose2022}. Therefore, having a way to generate a Dockerfile for a given project can be very useful. In this section, we looked for works that showcased ways to accomplish this. Our findings are summarized in Table \ref{tab:works_dockerfile_generation}.
+Many projects out there contain Dockerfiles that can not even be used to build an image \cite{wuEmpiricalStudyBuild2020,liDockerMockPreBuildDetection2021}. Therefore, having a way to generate a functinoal Dockerfile for a given project can be very useful. In this section, we looked for works that showcased ways to accomplish this. Our findings are summarized in Table \ref{tab:works_dockerfile_generation}.
 
 \todo{No parágrafo anterior, "easy" não parece ser o melhor adjetivo --- fácil comparaticamente com quê? No artigo que citas estávamos interessados sobretudo em aferir quão mais trabalhosas eram umas atividades \textbf{comparaticamente com outras}. Este "easy" não tem uma base de comparação tão clara.}
 
@@ -102,15 +102,15 @@ Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompo
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.25\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Successful generation rate} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
-        \hline Applying Model-Driven Engineering to Stimulate the Adoption of DevOps Processes in Small and Medium-Sized Development Organizations \cite{sorgallaApplyingModelDrivenEngineering2021} & Unknown & An Open API Spec is required & Medium \\
-        \hline Burner: Recipe Automatic Generation for HPC Container Based on Domain Knowledge Graph \cite{zhongBurnerRecipeAutomatic2022} & Up to 80\% & A vast knowledge graph is required, focused on Singularity & High \\
-        \hline Container-Based Module Isolation for Cloud Services \cite{kehrerContainerBasedModuleIsolation2019} & Unknown & Requires the use of templates to generate the files & Medium-High \\
-        \hline DockerGen: A Knowledge Graph based Approach for Software Containerization \cite{yeDockerGenKnowledgeGraph2021} & Up to 73\% & A vast knowledge graph is required & High \\
-        \hline DockerizeMe: Automatic Inference of Environment Dependencies for Python Code Snippets \cite{hortonDockerizeMeAutomaticInference2019} & Up to 30\% & Limited to Python, requires a knowledge base & High \\
-        \hline ExploitWP2Docker: a Platform for Automating the Generation of Vulnerable WordPress Environments for Cyber Ranges \cite{caturanoExploitWP2DockerPlatformAutomating2022} & Up to 39\% & Limited to security testing scenarios & Low-Medium \\
-        \hline MAKING CONTAINERS EASIER WITH HPC CONTAINER MAKER \cite{mcmillanMAKINGCONTAINERSEASIER} & Unknown & Requires Python code to generate the files & Medium-High \\
+    \begin{tabular}{|p{0.4\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|}
+        \hline \textbf{Name} & \textbf{Successful generation rate} & \textbf{Limitations} \\
+        \hline Applying Model-Driven Engineering to Stimulate the Adoption of DevOps Processes in Small and Medium-Sized Development Organizations \cite{sorgallaApplyingModelDrivenEngineering2021} & Unknown & An Open API Spec is required \\
+        \hline Burner: Recipe Automatic Generation for HPC Container Based on Domain Knowledge Graph \cite{zhongBurnerRecipeAutomatic2022} & Up to 80\% & A vast knowledge graph (2832 nodes and 62614 edges) is required, focused on Singularity \\
+        \hline Container-Based Module Isolation for Cloud Services \cite{kehrerContainerBasedModuleIsolation2019} & Unknown & Requires the use of templates to generate the files \\
+        \hline DockerGen: A Knowledge Graph based Approach for Software Containerization \cite{yeDockerGenKnowledgeGraph2021} & Up to 73\% & A vast knowledge graph (900000 nodes and 2900000 edges) is required \\
+        \hline DockerizeMe: Automatic Inference of Environment Dependencies for Python Code Snippets \cite{hortonDockerizeMeAutomaticInference2019} & Up to 30\% & Limited to Python snippets, requires a knowledge base \\
+        \hline ExploitWP2Docker: a Platform for Automating the Generation of Vulnerable WordPress Environments for Cyber Ranges \cite{caturanoExploitWP2DockerPlatformAutomating2022} & Up to 39\% & Limited to security testing scenarios, requires an exploit description \\
+        \hline MAKING CONTAINERS EASIER WITH HPC CONTAINER MAKER \cite{mcmillanMAKINGCONTAINERSEASIER} & Unknown & Requires Python code to generate the files \\
         \hline
     \end{tabular}
     \caption{Works about generating Dockerfiles}
