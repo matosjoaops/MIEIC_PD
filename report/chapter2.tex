@@ -73,7 +73,7 @@ Building Docker images can take a considerable amount of time, especially when a
     \begin{tabular}{|p{0.17\textwidth}|p{0.1\textwidth}|p{0.13\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
         \hline \textbf{Name} & \textbf{Speedup} & \textbf{Limitations} & \textbf{Interferes with normal Docker procedures?} & \textbf{Lines of code} & \textbf{Language used} & \textbf{Is the source code available?} \\
         \hline A Code Injection Method for Rapid Docker Image Building \cite{wangCodeInjectionMethod2019} & Up to 100000x faster & Can only be used with interpreted languages, limited to modifications in the source code & Yes & Unknown & Unknown & No \\
-        \hline FastBuild: Accelerating Docker Image Building for Efficient Development and Deployment of Container \cite{huangFastBuildAcceleratingDocker2019} & Up to 10x faster & Limited to network activity & Yes & ~2600 & Go & No \\
+        \hline FastBuild: Accelerating Docker Image Building for Efficient Development and Deployment of Container \cite{huangFastBuildAcceleratingDocker2019} & Up to 10x faster & Limited to network activity & Yes & Around 2600 & Go & No \\
         \hline Slacker: Fast Distribution with Lazy Docker Containers \cite{harterSlackerFastDistribution} & Up to 20x faster & Limited to network activity & Yes & Unknown & Unknown & No \\
         \hline Docker Buildx \footnotemark{} & Unknown & Unknown & No & Unknown & Go & Yes \\
         \hline
@@ -247,7 +247,7 @@ Like the previous sections have shown, the average Dockerfile has several proble
         \hline Update to the latest base image release & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
         \hline Install libpng-dev instead of libpng12-dev & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
         \hline Fix "Unable to locate package" by downgrading Ubuntu base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
-        \hline Fix Gemfile version error by pinning Rucy base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix Gemfile version error by pinning Ruby base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
         \hline Fix Ruby encoding error by setting environment variable & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
         \hline Install missing packages using APK or APT without using cached data & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
         \hline Do not install the bzr package with APK & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
@@ -267,9 +267,50 @@ Benni et al. \cite{benniSupportingMicroservicesDeployment2018} describe a way to
 Implementing the repairs mentioned in this section should be possible, although these implementations would have varying degrees of complexity.
 
 \section{Dockerfile Bloat} \label{sec:dockerfile_bloat}
+
+Many Docker images contain bloat \cite{rastogiCimplifierAutomaticallyDebloating2017} and their removal has benefits beyond the space saving. For example, a debloated image can be much more secure \cite{ahmedSecurityAnalysisCode2022}. Because of this, we looked for works that described ways to address this problem. Our findings are summarized in Table \ref{tab:works_dockerfile_bloat}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.4\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Removal rate} & \textbf{Limitations} \\
+        \hline Cimplifier: automatically debloating containers \cite{rastogiCimplifierAutomaticallyDebloating2017} & Up to 95\% of image size & Relies on good test coverage \\
+        \hline Large-scale Debloating of Binary Shared Libraries \cite{agadakosLargescaleDebloatingBinary2020} & 20-25\% of code in the image & Debloating happens at the binary level and does not perform any Docker specific changes \\
+        \hline New Directions for Container Debloating \cite{rastogiNewDirectionsContainer2017} & N/A & The suggested approaches are not actually implemented \\
+        \hline Wale: A Dockerfile-Based Approach to Deduplicate Shared Libraries in Docker Containers \cite{santoroWaleDockerfileBasedApproach2018} & Around 40\% of disk space & Only saves space when multiple containers are used \\
+        \hline
+    \end{tabular}
+    \caption{Works about Dockerfile Bloat}
+    \label{tab:works_dockerfile_bloat}
+\end{table}
+
+Cimplifier \cite{rastogiCimplifierAutomaticallyDebloating2017} is a tool that removes bloat from containers by having the developer specify how the contents of an image should be divided and creating several images accordingly. However, single container environments can also be generated if specified by the developer. This tool can drastically reduce the size of an image. However, it relies on dynamic analysis and good test coverage to perform its functions. The same authors also wrote a second article describing other approaches that could be used to perform debloating on containers \cite{rastogiNewDirectionsContainer2017}, although these alternative approaches were not actually implemented.
+
+Nibbler \cite{agadakosLargescaleDebloatingBinary2020} is a tool that performs debloating at the binary level and can remove a decent amount of bloat from an image. However, because it does not make use of any Docker specific mechanisms, it could be difficult to implement in our tool.
+
+Wale \cite{santoroWaleDockerfileBasedApproach2018} is a tool that can debloat containers by placing packages used by multiple containers in a core container that is used by the others. This means it can not debloat systems that use a single container. Despite this, it can save a decent amount of disk space in the scenarios where it can be used.
+
 \section{Dockerfile Testing} \label{sec:dockerfile_testing}
+
+Our findings are summarized in Table \ref{tab:works_dockerfile_testing}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.4\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Coverage} & \textbf{Limitations} \\
+        \hline DockerMock: Pre-Build Detection of Dockerfile Faults through Mocking Instruction Execution \cite{liDockerMockPreBuildDetection2021} & ??? & ??? \\
+        \hline Dgoss \footnotemark[7]{} & ??? & ??? \\
+        \hline Container Structure Tests \footnotemark[8]{} & ??? & ??? \\
+        \hline
+    \end{tabular}
+    \caption{Works about Dockerfile Testing}
+    \label{tab:works_dockerfile_testing}
+\end{table}
+
+\footnotetext[7]{Dgoss, \url{https://github.com/goss-org/goss/tree/master/extras/dgoss}}
+\footnotetext[8]{Container Structure Tests, \url{https://github.com/GoogleContainerTools/container-structure-test}}
 \section{General Discussion} \label{sec:general_discussion}
 
-Ksontini et al. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings (a concept which is closely tied to smells) and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
+Ksontini et al. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
 
 \todo{Seria aqui um bom sítio onde responder de forma mais explícita às perguntas que colocamos no início do capítulo.}
