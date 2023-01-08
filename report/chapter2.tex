@@ -159,22 +159,43 @@ Wu et al. \cite{wuCharacterizingOccurrenceDockerfile2020} analyzed a large amoun
 
 \section{Dockerfile Good Practices} \label{sec:dockerfile_good_practices}
 
-To prevent the creation of smells like the ones mentioned in Section \ref{sec:dockerfile_smells}, a developer should follow good practices. This section goes over works that cover these practices. Our findings are summarized in Table \ref{tab:works_dockerfile_good_practices}.
+To prevent the creation of smells like the ones mentioned in Section \ref{sec:dockerfile_smells}, a developer should follow good practices. This section goes over works that cover these practices. Table \ref{tab:works_dockerfile_good_practices} contains a list of good practices found in literature.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.25\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Practices} & \textbf{Limitations} & \textbf{Practices that could be implemented} \\
-        \hline Learning from, Understanding, and Supporting DevOps Artifacts for Docker \cite{henkelLearningUnderstandingSupporting2020} & Related to usage of package managers and command line utilities (gold rules) & No inherent repair functionality & All of them \\
-        \hline Security Misconfigurations Detection and Repair in Dockerfile \cite{prinettoSecurityMisconfigurationsDetection} & Practices that make an image more secure & Limited to improving security (although these practices have other benefits) & Most of them \\
-        \hline Ten simple rules for writing Dockerfiles for reproducible data science \cite{nustTenSimpleRules2020} & Rules 3,4,5 and 9 are applicable to every scenario & Focused on data science & Rules 5 and 9 \\
+    \begin{tabular}{|p{0.7\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Practice} & \textbf{Related works} \\
+        \hline Format for clarity & \cite{nustTenSimpleRules2020} \\
+        \hline Document within the Dockerfile & \cite{nustTenSimpleRules2020} \\
+        \hline Specify software versions & \cite{nustTenSimpleRules2020} \\
+        \hline Order the instructions & \cite{nustTenSimpleRules2020} \\
+        \hline Run the container in rootless mode & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Use tagged minimal images and multistage builds & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Use COPY with specific parameters & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Update and install packages in the same RUN instruction & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Use COPY instead of ADD & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Do not leak sensitive information to an image & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Remove unnecessary dependencies & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Only expose ports that are needed & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Use official images when possible & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Remove temporary directories & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use flag \textit{-f} with curl & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Remove tarballs after extraction & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Do not use APK's cache & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Do not install dependencies recommended by APT & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use HTTPS urls with curl & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use batch flag with gpg & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use HTTPS urls with wget & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use flag \textit{-y} with \textit{apt-get install} & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Remove APT lists after package installation & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Run \textit{apt-get update} before \textit{apt-get install} & \cite{henkelLearningUnderstandingSupporting2020} \\
         \hline
     \end{tabular}
-    \caption{Works about Dockerfile good practices}
-    \label{tab:works_dockerfile_good_practices}
+    \caption{Dockerfile good practices}
+    \label{tab:dockerfile_good_practices}
 \end{table}
 
-Henkel et al. \cite{henkelLearningUnderstandingSupporting2020} mined rules from Dockerfiles created by experts, allowing them to create a set of "gold rules", a set of patterns that often appear in Dockerfiles written by these experts. All of these "gold rules" could be implemented as repairs.
+Henkel et al. \cite{henkelLearningUnderstandingSupporting2020} mined rules from Dockerfiles created by experts, allowing them to create a set of "gold rules", a set of patterns that often appear in Dockerfiles written by these experts. Some of these "gold rules" are not listed above because it's not clear what they refer to. It should be possible to implement the listed ones as repairs.
 
 Prinetto et al. \cite{prinettoSecurityMisconfigurationsDetection} looked for flaws in Dockerfiles that could lead to vulnerabilities in a system. As part of that work they list a set of practices developers should follow to improve a Docker image's security. Most of the practices listed could be implemented as repair, although some of them would be too complex to implement.
 
