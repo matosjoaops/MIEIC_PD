@@ -159,7 +159,7 @@ Wu et al. \cite{wuCharacterizingOccurrenceDockerfile2020} analyzed a large amoun
 
 \section{Dockerfile Good Practices} \label{sec:dockerfile_good_practices}
 
-To prevent the creation of smells like the ones mentioned in Section \ref{sec:dockerfile_smells}, a developer should follow good practices. This section goes over works that cover these practices. Table \ref{tab:works_dockerfile_good_practices} contains a list of good practices found in literature.
+To prevent the creation of smells like the ones mentioned in Section \ref{sec:dockerfile_smells}, a developer should follow good practices. This section goes over works that cover these practices. Table \ref{tab:dockerfile_good_practices} contains a list of good practices found in literature.
 
 \begin{table}[H]
     \centering
@@ -232,21 +232,30 @@ Implementing repairs that address most of the problems and vulnerabilities found
 
 \section{Dockerfile Repair} \label{sec:dockerfile_repair}
 
-Like the previous sections have shown, the average Dockerfile has several problems and it can be difficult for a developer to figure out how to deal with those issues in an optimal way. This makes it important to create tools that can assist developers in the repair process. This section goes over works that do that (although other sections also discuss works that perform repairs that are related to more specific scenarios). Our findings are summarized in Table \ref{tab:works_dockerfile_repair}.
+Like the previous sections have shown, the average Dockerfile has several problems and it can be difficult for a developer to figure out how to deal with those issues in an optimal way. This makes it important to create tools that can assist developers in the repair process. This section goes over works that do that (although other sections also discuss works that perform repairs that are related to more specific scenarios). Table \ref{tab:dockerfile_repair} contains a list of repairs found in literature.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Performed repair} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
-        \hline Latest Image Recommendation Method for Automatic Base Image Update in Dockerfile \cite{kitajimaLatestImageRecommendation2020} & Base image update & Does not cover other parts of the Dockerfile & Medium \\
-        \hline Learning from, Understanding, and Supporting DevOps Artifacts for Docker \cite{henkelLearningUnderstandingSupporting2020} & Enforcing the gold rules by detecting violations & Does not perform the repair, only helps detect places where they should be performed & Medium \\
-        \hline RUDSEA: recommending updates of Dockerfiles via software environment analysis \cite{hassanRUDSEARecommendingUpdates2018} & Updates portions of the source code which are tied to values in the source code & Does not cover parts other parts of the Dockerfile & Medium-High \\
-        \hline Shipwright: A Human-in-the-Loop System for Dockerfile Repair \cite{henkelShipwrightHumanintheLoopSystem2021} & Repairs that deal with some functional problems & Some of the repairs listed can only be applied to some projects & Medium \\
-        \hline Supporting micro-services deployment in a safer way: a static analysis and automated rewriting approach \cite{benniSupportingMicroservicesDeployment2018} & Reducing the number of layers in the image to take advantage of layer caching & Small number of repairs & Low-Medium \\
+    \begin{tabular}{|p{0.7\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Repair} & \textbf{Related works} \\
+        \hline Base image update & \cite{kitajimaLatestImageRecommendation2020} \\
+        \hline Gold rule enforcement (rules listed in Section \ref{sec:dockerfile_good_practices}) & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Update portions of the Dockerfile which are ties to values in source code & \cite{hassanRUDSEARecommendingUpdates2018} \\
+        \hline Combine consecutive RUN instructions into one & \cite{benniSupportingMicroservicesDeployment2018} \\
+        \hline Fix Ruby version error by pinning Ruby base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix RPM installation error by installing a plugin first & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Update to the latest base image release & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Install libpng-dev instead of libpng12-dev & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix "Unable to locate package" by downgrading Ubuntu base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix Gemfile version error by pinning Rucy base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix Ruby encoding error by setting environment variable & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Install missing packages using APK or APT without using cached data & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Do not install the bzr package with APK & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Add the \textit{-L} flag when using curl to install conda & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
         \hline
     \end{tabular}
-    \caption{Works about Dockerfile repair}
-    \label{tab:works_dockerfile_repair}
+    \caption{Dockerfile repairs}
+    \label{tab:dockerfile_repair}
 \end{table}
 
 Kitajima et al. \cite{kitajimaLatestImageRecommendation2020} focused on updating a container's base image by analyzing the available tags, while Hassan et al. \cite{hassanRUDSEARecommendingUpdates2018} focused on portions of the Dockerfile which are tied to values in the source code.
