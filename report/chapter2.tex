@@ -131,20 +131,22 @@ All these works show varying degrees of success and some of them are not even fo
 
 \section{Dockerfile Smells} \label{sec:dockerfile_smells}
 
-Smells are commonly found in Dockerfiles \cite{wuCharacterizingOccurrenceDockerfile2020}, making it important to create ways of detecting and, if possible, remove them. This section covers works related to this. Our findings are summarized in Table \ref{tab:works_dockerfile_smells}.
+Smells are commonly found in Dockerfiles \cite{wuCharacterizingOccurrenceDockerfile2020}, making it important to create ways of detecting and, if possible, remove them. This section covers works related to this. Table \ref{tab:dockerfile_smells} contains a list of smells found in literature.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.25\textwidth}|c|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Smells} & \textbf{Findings} & \textbf{Possible repair implementation complexity} \\
-        \hline An Empirical Case Study on the Temporary File Smell in Dockerfiles \cite{luEmpiricalCaseStudy2019} & Temporary File & The smell is quite common and can be divided into 4 different types, 3 of which can be detected through the proposed methods & Medium \\
-        \hline An empirical study on self-admitted technical debt in Dockerfiles \cite{azumaEmpiricalStudySelfadmitted2022} & SATD & Shows that a type of smell appears in Dockerfiles and can be divided into several classes and subclasses & High \\
-        \hline Characterizing the Occurrence of Dockerfile Smells in Open-Source Software: An Empirical Study \cite{wuCharacterizingOccurrenceDockerfile2020} & All & Smells appear commonly in projects and the frequency with which they appear varies according to several metrics & High \\
-        \hline Dockerfile TF Smell Detection Based on Dynamic and Static Analysis Methods \cite{xuDockerfileTFSmell2019} & Temporary File & It's possible to detect the smell with high accuracy using static and dynamic analysis & Medium \\
+    \begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.5\textwidth}|}
+        \hline \textbf{Smell} & \textbf{Related works} & \textbf{Related findings} \\
+        \hline Temporary File & \cite{luEmpiricalCaseStudy2019} and \cite{xuDockerfileTFSmell2019} & The smell is quite common and can be divided into 4 different types; can be detected through static and dynamic analysis \\
+        \hline SATD & \cite{azumaEmpiricalStudySelfadmitted2022} & This type of smell appears in Dockerfiles and can be divided into several classes and subclasses \\
+        \hline Lack of version tagging/pinning & \cite{wuCharacterizingOccurrenceDockerfile2020} & N/A \\
+        \hline Use of the MAINTAINER instruction & \cite{wuCharacterizingOccurrenceDockerfile2020} & N/A \\
+        \hline Use of \textit{cd} to switch directories instead of WORKDIR & \cite{wuCharacterizingOccurrenceDockerfile2020} & N/A \\
+        \hline The parameter \textit{--no-install-recommends} is not used when installing packages with APT & \cite{wuCharacterizingOccurrenceDockerfile2020} & N/A \\
         \hline
     \end{tabular}
-    \caption{Works about Dockerfile smells}
-    \label{tab:works_dockerfile_smells}
+    \caption{Dockerfile smells}
+    \label{tab:dockerfile_smells}
 \end{table}
 
 \todo{Mais do que listar/caracterizar artigos, idealmente estas tabelas seriam sobre as coisas que te interessam encontrar. Por exemplo, nesta secção estás interessado é nos smells, logo, acho que faria mais sentido ser uma tabela de smells, em que indicavas o artigo em que o encontraste (em vez de uma tabela de artigos em que indicas os smells, estou a fazer sentido?). A mesma ideia é aplicável às outras secções.}
@@ -153,7 +155,7 @@ Lu et al. \cite{luEmpiricalCaseStudy2019} and Xu et al. \cite{xuDockerfileTFSmel
 
 Azuma et al. \cite{azumaEmpiricalStudySelfadmitted2022} focus on a variation of smells they call SATD (self-admitted technical debt) which can be detected in comments written in the Dockerfiles. Due to the nature of these SATDs, implementing repairs to eliminate them could be very complicated.
 
-Wu et al. \cite{wuCharacterizingOccurrenceDockerfile2020} analyzed a large amount of open-source projects and found that Dockerfile smells are very common and their frequency changes according to several factors like the programming language used by the project or the project's age. Due to the variety of smells covered by this study implementing repairs to deal with all of them would be difficult.
+Wu et al. \cite{wuCharacterizingOccurrenceDockerfile2020} analyzed a large amount of open-source projects and found that Dockerfile smells are very common and their frequency changes according to several factors like the programming language used by the project or the project's age. Due to the variety of smells covered by this study implementing repairs to deal with all of them would be difficult. For the same reasons, only some of the analyzed smells were listed here.
 
 \section{Dockerfile Good Practices} \label{sec:dockerfile_good_practices}
 
