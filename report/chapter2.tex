@@ -292,25 +292,31 @@ Wale \cite{santoroWaleDockerfileBasedApproach2018} is a tool that can debloat co
 
 \section{Dockerfile Testing} \label{sec:dockerfile_testing}
 
-Our findings are summarized in Table \ref{tab:works_dockerfile_testing}.
+One of the activies developers consider time-consuming is testing their containers to make sure they works as intended \cite{reisDevelopingDockerDockerCompose2022}. This makes sense considering problems like build failure are quite common \cite{wuEmpiricalStudyBuild2020}. Therefore, having tools to help them perform this task could have a positive impact on their development experience. We looked for tools like this in the literature and our findings are summarized in Table \ref{tab:works_dockerfile_testing}.
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{0.4\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
         \hline \textbf{Name} & \textbf{Coverage} & \textbf{Limitations} \\
-        \hline DockerMock: Pre-Build Detection of Dockerfile Faults through Mocking Instruction Execution \cite{liDockerMockPreBuildDetection2021} & ??? & ??? \\
-        \hline Dgoss \footnotemark[7]{} & ??? & ??? \\
-        \hline Container Structure Tests \footnotemark[8]{} & ??? & ??? \\
+        \hline DockerMock: Pre-Build Detection of Dockerfile Faults through Mocking Instruction Execution \cite{liDockerMockPreBuildDetection2021} & 68\% & Can not find problem in the environment surrounding the Dockerfile \\
+        \hline Dgoss \footnotemark[7]{} & N/A & The developer must write the tests themselves \\
+        \hline Container Structure Tests \footnotemark[8]{} & N/A & The developer must write the tests themselves \\
         \hline
     \end{tabular}
     \caption{Works about Dockerfile Testing}
     \label{tab:works_dockerfile_testing}
 \end{table}
 
+DockerMock \cite{liDockerMockPreBuildDetection2021} mocks common Dockerfile instructions in order to find problems before an image is even built. The results are promising, although issues outside the Dockerfile can not be detected.
+
+Dgoss and Container Structure Tests make it easier to create and execute tests meant for containers but do not automate the test creation.
+
 \footnotetext[7]{Dgoss, \url{https://github.com/goss-org/goss/tree/master/extras/dgoss}}
 \footnotetext[8]{Container Structure Tests, \url{https://github.com/GoogleContainerTools/container-structure-test}}
 \section{General Discussion} \label{sec:general_discussion}
 
 Ksontini et al. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
+
+... (falta falar sobre a experiência de desenvolvimento e responder às RQs)
 
 \todo{Seria aqui um bom sítio onde responder de forma mais explícita às perguntas que colocamos no início do capítulo.}
