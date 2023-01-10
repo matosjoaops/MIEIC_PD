@@ -1,13 +1,58 @@
 \chapter{Repairing and Generating Dockerfiles (title is WIP)} \label{chap:sota}
 
-This section covers existing literature and tools that are related to several components of the Dockerfile development experience and Docker in general. Section \ref{sec:background} goes over the background that is required to understand this paper. Section \ref{sec:speeding_up_docker_builds} goes over ways to accelerate Docker builds. Section \ref{sec:dockerfile_generation} goes over works that cover the generation of Dockerfiles. Section \ref{sec:dockerfile_smells} covers smells in Dockerfiles. Section \ref{sec:dockerfile_good_practices} talks about good practices that should be taken into account when writing Dockerfiles. Section \ref{sec:dockerfile_security} tackles the topic of security in Dockerfiles. Section \ref{sec:dockerfile_repair} covers the detection and repair of faults in Dockerfiles. Section \ref{sec:dockerfile_bloat} covers the detection and removal of bloat in Dockerfiles. Section \ref{sec:dockerfile_testing} is about testing Dockerfiles. Section \ref{sec:general_discussion} concludes with a general discussion.
+Now that we've introduced the problem this thesis revolves around it's time to go over the state of the art.
+This section covers existing literature and tools that are related to several components of the Dockerfile development experience and Docker in general.
 
 \todo{Estes parágrafos deviam sobretudo fazer uma introdução ao capítulo, e ligação com o capítulo anterior. Listar as subsecções e dizer o que elas contêem não tem muito interesse, estas secções podem é explicar melhor de que forma é que as várias secções se relacionam. Mesmo assim, neste caso, como são muitas, fica um pouco maçudo, e acho que não acrescenta muito para o leitor.}
 
 \section{Background} \label{sec:background}
 ...
 
-\section{Goals and methodology}
+\section{Goals and methodology} \label{sec:goals_and_methodology}
+
+Our end goal is to help developers write Dockerfiles. To do this, we first need to know what challenges they face when writing Dockerfiles and how the quality of the Dockerfiles is affected by these challenges. Furthermore, we need to analyze current solutions that address these issues in order to build upon them. With this in mind, we came up with the following research questions:
+
+\begin{itemize}
+    \item \textbf{RQ1}: What are the challenges that developers face in the development of Dockerfiles?
+    \item \textbf{RQ2}: How have these challenges been addressed so far?
+\end{itemize}
+
+To answer these questions we tried to find as much information as possible about Docker and Dockerfiles. Furthermore, we also tried to find works that analyzed a developer's subjective experience when performing development tasks. We ended up using the following queries to look for information in Google Scholar \footnote{Google Scholar, \url{https://scholar.google.com/}}:
+
+\begin{itemize}
+    \item dockerfile generation
+    \item distroless
+    \item docker build
+    \item dockerfile
+    \item dockerfile creation
+    \item dockerfile generator
+    \item dockerfile repair
+    \item docker repair
+    \item dockerfile readability
+    \item dockerfile evaluation
+    \item dockerfile analysis
+    \item docker bloat
+    \item docker build time
+    \item dockerfile practices
+    \item programming experience
+\end{itemize}
+
+These queries gave us plenty of results, which had to be filtered to reach an amount that could be reasonably analyzed in the amount of time that we were given. We focused on works from the last few years that focused (at least partially) on Docker or Dockerfiles (instead of merely using Docker as a tool due to its convenience). We looked at the title and abstracts of the results to perform our selection and ended up with around 50 works to analyze. Most of these were analyzed, although some had to be excluded due to either time constraints or difficulty accessing the work. 
+
+\section{Challenges in the Development of Dockerfiles} \label{sec:challenges_development_dockerfiles}
+
+After looking at the literature, we identified several aspects of the Dockerfile development experience that could be considered challenging. This includes the following aspects:
+
+\begin{itemize}
+    \item The amount of time required to build an image from a Dockerfile
+    \item The amount of vulnerabilities present in Dockerfiles (and the corresponding images)
+    \item The amount of bloat present in Docker images
+    \item The reliance on trial and error to test Dockerfiles
+    \item The amount of smells contained in Dockerfiles
+    \item The amount of Dockerfiles that do not follow best practices
+\end{itemize}
+
+With these issues in mind, this chapter contains sections that address each of these problems. Additionally, there are also sections dedicated to repairing and generating Dockerfiles since those are features that our tool will provide and could improve the Dockerfile development experience.
 
 \todo{Sugiro que incluas aqui um pouco sobre os objetivos desta revisão de literatura. As RQs da revisão de literatura apareceriam aqui. Além dessas perguntas, fala também um pouco do processo que seguiste para lhes tentar dar resposta, incluindo onde pesquisaste, que queries usaste, quais foram os teus critérios de inclusão/exclusão de resultados, etc.}
 
@@ -15,7 +60,7 @@ This section covers existing literature and tools that are related to several co
 
 \section{Speeding up Docker builds} \label{sec:speeding_up_docker_builds}
 
-Building Docker images can take a considerable amount of time, especially when a large amount of files have to be fetched from the internet ~\citep{harterSlackerFastDistribution}. Therefore, we looked for ways to reduce the amount of time consumed by this activity. Our findings are summarized in Table \ref{tab:works_speeding_up}.
+Building Docker images can take a considerable amount of time, especially when a large amount of files have to be fetched from the internet \cite{harterSlackerFastDistribution}. Therefore, we looked for approaches to reduce the amount of time consumed by this activity. Our findings are summarized in Table \ref{tab:works_speeding_up}.
 
 \todo{ways -> approaches}
 
@@ -25,29 +70,31 @@ Building Docker images can take a considerable amount of time, especially when a
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.25\textwidth}|c|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Speedup} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
-        \hline A Code Injection Method for Rapid Docker Image Building \cite{wangCodeInjectionMethod2019} & Up to 100000x faster & Can only be used with interpreted languages, limited to modifications in the source code & High \\
-        \hline FastBuild: Accelerating Docker Image Building for Efficient Development and Deployment of Container \cite{huangFastBuildAcceleratingDocker2019} & Up to 10x faster & Limited to network activity & High \\
-        \hline Slacker: Fast Distribution with Lazy Docker Containers \cite{harterSlackerFastDistribution} & Up to 20x faster & Limited to network activity & High \\
-        \hline Docker Buildx \cite{DockerBuildx2022} & Unknown & Unknown & Low-Medium \\
+    \begin{tabular}{|p{0.17\textwidth}|p{0.1\textwidth}|p{0.13\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|p{0.1\textwidth}|}
+        \hline \textbf{Name} & \textbf{Speedup} & \textbf{Limitations} & \textbf{Interferes with normal Docker procedures?} & \textbf{Lines of code} & \textbf{Language used} & \textbf{Is the source code available?} \\
+        \hline A Code Injection Method for Rapid Docker Image Building \cite{wangCodeInjectionMethod2019} & Up to 100000x faster & Can only be used with interpreted languages, limited to modifications in the source code & Yes & Unknown & Unknown & No \\
+        \hline FastBuild: Accelerating Docker Image Building for Efficient Development and Deployment of Container \cite{huangFastBuildAcceleratingDocker2019} & Up to 10x faster & Limited to network activity & Yes & Around 2600 & Go & No \\
+        \hline Slacker: Fast Distribution with Lazy Docker Containers \cite{harterSlackerFastDistribution} & Up to 20x faster & Limited to network activity & Yes & Unknown & Unknown & No \\
+        \hline Docker Buildx \footnotemark{} & Unknown & Unknown & No & Unknown & Go & Yes \\
         \hline
-    \end{tabular} 
+    \end{tabular}
     \caption{Works about speeding up Docker builds}
     \label{tab:works_speeding_up}
 \end{table}
+
+\footnotetext{Docker Buildx, \url{https://docs.docker.com/engine/reference/commandline/buildx/}}
 
 \todo{Na tabela tens uma coluna sobre complexidade de implementação que é muito subjetiva. Melhor do que isso seria usares colunas com coisas objetivas mas que te permitam  concluir sobre a complexidade no texto que acompanha a tabela.}
 
 Wang et al. \cite{wangCodeInjectionMethod2019} propose a technique that bypasses typical building procedures by injecting the code modifications directly in an image. The results are very promising. However, due to the nature of approach, it can only be used with interpreted languages and will not accelerate builds related to modifications in development artifacts that are not source code.
 
-Huang et al. \cite{huangFastBuildAcceleratingDocker2019} and Harter et al. \cite{harterSlackerFastDistribution} address the network bottleneck in different ways. The former caches files locally and intercepts Docker's network requests in order to serve files that have been stored locally. The latter proposes a new storage driver that lazily fetches files from the network. Both show promising results and do not address other inefficiencies in the Docker building process.
+Huang et al. \cite{huangFastBuildAcceleratingDocker2019} and Harter et al. \cite{harterSlackerFastDistribution} address the network bottleneck in different ways. The former caches files locally and intercepts Docker's network requests in order to serve files that have been stored locally. The latter proposes a new storage driver that lazily fetches files from the network. Both show promising results and do not address other inefficiencies in the Docker building process. FastBuild was implemented using around 2600 lines of Go code.
 
-The works described so far interfere with the normal Docker build procedures, making them harder to implement. Another solution is offered by the Docker development team, Buildx \cite{DockerBuildx2022}. Buildx makes use of a newer backend, BuildKit \cite{BuildKit2022}, which brings many features that can potentially accelerate docker builds. However, to our knowledge, an apples to apples time comparison has not been made. Implementing this in Dockerlive wouldn't be very hard but because the output of the buildx command is different, some modifications would still be required.
+The works described so far interfere with the normal Docker build procedures and do not have public source code for their tools. This makes them harder to implement. Another solution is offered by the Docker development team, Buildx. Buildx makes use of a newer backend, BuildKit \footnote{Docker BuildKit, \url{https://docs.docker.com/build/buildkit/}}, which brings many features that can potentially accelerate docker builds. However, to our knowledge, an apples to apples time comparison has not been made. Implementing this in Dockerlive wouldn't be very hard but because the output of the buildx command is different, some modifications would still be required.
 
 \section{Dockerfile Generation} \label{sec:dockerfile_generation}
 
-Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompose2022}. Therefore, having a way to generate a Dockerfile for a given project can be very useful. In this section, we looked for works that showcased ways to accomplish this. Our findings are summarized in Table \ref{tab:works_dockerfile_generation}.
+Many projects out there contain Dockerfiles that can not even be used to build an image \cite{wuEmpiricalStudyBuild2020,liDockerMockPreBuildDetection2021}. Therefore, having a way to generate a functinoal Dockerfile for a given project can be very useful. In this section, we looked for works that showcased ways to accomplish this. Our findings are summarized in Table \ref{tab:works_dockerfile_generation}.
 
 \todo{No parágrafo anterior, "easy" não parece ser o melhor adjetivo --- fácil comparaticamente com quê? No artigo que citas estávamos interessados sobretudo em aferir quão mais trabalhosas eram umas atividades \textbf{comparaticamente com outras}. Este "easy" não tem uma base de comparação tão clara.}
 
@@ -55,17 +102,17 @@ Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompo
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.25\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Successful generation rate} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
-        \hline Applying Model-Driven Engineering to Stimulate the Adoption of DevOps Processes in Small and Medium-Sized Development Organizations \cite{sorgallaApplyingModelDrivenEngineering2021} & Unknown & An Open API Spec is required & Medium \\
-        \hline Burner: Recipe Automatic Generation for HPC Container Based on Domain Knowledge Graph \cite{zhongBurnerRecipeAutomatic2022} & Up to 80\% & A vast knowledge graph is required, focused on Singularity & High \\
-        \hline Container-Based Module Isolation for Cloud Services \cite{kehrerContainerBasedModuleIsolation2019} & Unknown & Requires the use of templates to generate the files & Medium-High \\
-        \hline DockerGen: A Knowledge Graph based Approach for Software Containerization \cite{yeDockerGenKnowledgeGraph2021} & Up to 73\% & A vast knowledge graph is required & High \\
-        \hline DockerizeMe: Automatic Inference of Environment Dependencies for Python Code Snippets \cite{hortonDockerizeMeAutomaticInference2019} & Up to 30\% & Limited to Python, requires a knowledge base & High \\
-        \hline ExploitWP2Docker: a Platform for Automating the Generation of Vulnerable WordPress Environments for Cyber Ranges \cite{caturanoExploitWP2DockerPlatformAutomating2022} & Up to 39\% & Limited to security testing scenarios & Low-Medium \\
-        \hline MAKING CONTAINERS EASIER WITH HPC CONTAINER MAKER \cite{mcmillanMAKINGCONTAINERSEASIER} & Unknown & Requires Python code to generate the files & Medium-High \\
+    \begin{tabular}{|p{0.4\textwidth}|p{0.2\textwidth}|p{0.3\textwidth}|}
+        \hline \textbf{Name} & \textbf{Successful generation rate} & \textbf{Limitations} \\
+        \hline Applying Model-Driven Engineering to Stimulate the Adoption of DevOps Processes in Small and Medium-Sized Development Organizations \cite{sorgallaApplyingModelDrivenEngineering2021} & Unknown & An Open API Spec is required \\
+        \hline Burner: Recipe Automatic Generation for HPC Container Based on Domain Knowledge Graph \cite{zhongBurnerRecipeAutomatic2022} & Up to 80\% & A vast knowledge graph (2832 nodes and 62614 edges) is required, focused on Singularity \\
+        \hline Container-Based Module Isolation for Cloud Services \cite{kehrerContainerBasedModuleIsolation2019} & Unknown & Requires the use of templates to generate the files \\
+        \hline DockerGen: A Knowledge Graph based Approach for Software Containerization \cite{yeDockerGenKnowledgeGraph2021} & Up to 73\% & A vast knowledge graph (900000 nodes and 2900000 edges) is required \\
+        \hline DockerizeMe: Automatic Inference of Environment Dependencies for Python Code Snippets \cite{hortonDockerizeMeAutomaticInference2019} & Up to 30\% & Limited to Python snippets, requires a knowledge base \\
+        \hline ExploitWP2Docker: a Platform for Automating the Generation of Vulnerable WordPress Environments for Cyber Ranges \cite{caturanoExploitWP2DockerPlatformAutomating2022} & Up to 39\% & Limited to security testing scenarios, requires an exploit description \\
+        \hline MAKING CONTAINERS EASIER WITH HPC CONTAINER MAKER \cite{mcmillanMAKINGCONTAINERSEASIER} & Unknown & Requires Python code to generate the files \\
         \hline
-    \end{tabular} 
+    \end{tabular}
     \caption{Works about generating Dockerfiles}
     \label{tab:works_dockerfile_generation}
 \end{table}
@@ -74,28 +121,32 @@ Writing Dockerfiles is not an easy process \cite{reisDevelopingDockerDockerCompo
 
 \todo{A coluna sobre a complexidade é um pouco subjetiva...}
 
-Zhong et al. \cite{zhongBurnerRecipeAutomatic2022}, Ye et al. \cite{yeDockerGenKnowledgeGraph2021} and Horton et al. \cite{hortonDockerizeMeAutomaticInference2019} present solutions that require pre-existing knowledge bases in order to generate the files, making them hard to implement in a project like ours, which is not completely focused on file generation. DockerizeMe is also limited to Python environments, while Burner is more focused on Singularity \cite{Apptainer}, a containerization tool similar to Docker but focused on HPC (High Performance Computing).
+Zhong et al. \cite{zhongBurnerRecipeAutomatic2022}, Ye et al. \cite{yeDockerGenKnowledgeGraph2021} and Horton et al. \cite{hortonDockerizeMeAutomaticInference2019} present solutions that require pre-existing knowledge bases in order to generate the files, making them hard to implement in a project like ours, which is not completely focused on file generation. DockerizeMe is also limited to Python environments, while Burner is more focused on Singularity \footnote{Singularity, \url{https://apptainer.org/}}, a containerization tool similar to Docker but focused on HPC (High Performance Computing).
 
-Caturano et al. \cite{caturanoExploitWP2DockerPlatformAutomating2022} propose a tool that uses Docker to generate security testing environments from exploit descriptions. Sorgalla et al. \cite{sorgallaApplyingModelDrivenEngineering2021}'s work can generate Dockerfiles from models, which are generated from Open API Specifications (like Swagger \cite{Swagger}). Kehrer et al. \cite{kehrerContainerBasedModuleIsolation2019} use Apache FreeMarker \cite{ApacheFreeMarker} to generate Dockerfiles from templates. McMillan et al. \cite{mcmillanMAKINGCONTAINERSEASIER} offer a tool that allows developer to use Python code to define the information required to generate Dockerfiles.
+
+
+Caturano et al. \cite{caturanoExploitWP2DockerPlatformAutomating2022} propose a tool that uses Docker to generate security testing environments from exploit descriptions. Sorgalla et al. \cite{sorgallaApplyingModelDrivenEngineering2021}'s work can generate Dockerfiles from models, which are generated from Open API Specifications (like Swagger \footnote{Swagger, \url{https://swagger.io/}}). Kehrer et al. \cite{kehrerContainerBasedModuleIsolation2019} use Apache FreeMarker \footnote{Apache FreeMarker, \url{https://freemarker.apache.org/}} to generate Dockerfiles from templates. McMillan et al. \cite{mcmillanMAKINGCONTAINERSEASIER} offer a tool that allows developer to use Python code to define the information required to generate Dockerfiles.
 
 All these works show varying degrees of success and some of them are not even focused on the Dockerfile generation aspect.
 
 \section{Dockerfile Smells} \label{sec:dockerfile_smells}
 
-Smells are commonly found in Dockerfiles \cite{wuCharacterizingOccurrenceDockerfile2020}, making it important to create ways of detecting and, if possible, remove them. This section covers works related to this. Our findings are summarized in Table \ref{tab:works_dockerfile_smells}.
+Smells are commonly found in Dockerfiles \cite{wuCharacterizingOccurrenceDockerfile2020}, making it important to create ways of detecting and, if possible, remove them. This section covers works related to this. Table \ref{tab:dockerfile_smells} contains a list of smells found in literature.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.25\textwidth}|c|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Smells} & \textbf{Findings} & \textbf{Possible repair implementation complexity} \\
-        \hline An Empirical Case Study on the Temporary File Smell in Dockerfiles \cite{luEmpiricalCaseStudy2019} & Temporary File & The smell is quite common and can be divided into 4 different types, 3 of which can be detected through the proposed methods & Medium \\
-        \hline An empirical study on self-admitted technical debt in Dockerfiles \cite{azumaEmpiricalStudySelfadmitted2022} & SATD & Shows that a type of smell appears in Dockerfiles and can be divided into several classes and subclasses & High \\
-        \hline Characterizing the Occurrence of Dockerfile Smells in Open-Source Software: An Empirical Study \cite{wuCharacterizingOccurrenceDockerfile2020} & All & Smells appear commonly in projects and the frequency with which they appear varies according to several metrics & High \\
-        \hline Dockerfile TF Smell Detection Based on Dynamic and Static Analysis Methods \cite{xuDockerfileTFSmell2019} & Temporary File & It's possible to detect the smell with high accuracy using static and dynamic analysis & Medium \\
+    \begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.5\textwidth}|}
+        \hline \textbf{Smell} & \textbf{Related works} & \textbf{Related findings} \\
+        \hline Temporary File & \cite{luEmpiricalCaseStudy2019} and \cite{xuDockerfileTFSmell2019} & The smell is quite common and can be divided into 4 different types; can be detected through static and dynamic analysis \\
+        \hline SATD & \cite{azumaEmpiricalStudySelfadmitted2022} & This type of smell appears in Dockerfiles and can be divided into several classes and subclasses \\
+        \hline Lack of version tagging/pinning & \cite{wuCharacterizingOccurrenceDockerfile2020} & N/A \\
+        \hline Use of the MAINTAINER instruction & \cite{wuCharacterizingOccurrenceDockerfile2020} & N/A \\
+        \hline Use of \textit{cd} to switch directories instead of WORKDIR & \cite{wuCharacterizingOccurrenceDockerfile2020} & N/A \\
+        \hline The parameter \textit{--no-install-recommends} is not used when installing packages with APT & \cite{wuCharacterizingOccurrenceDockerfile2020} & N/A \\
         \hline
-    \end{tabular} 
-    \caption{Works about Dockerfile smells}
-    \label{tab:works_dockerfile_smells}
+    \end{tabular}
+    \caption{Dockerfile smells}
+    \label{tab:dockerfile_smells}
 \end{table}
 
 \todo{Mais do que listar/caracterizar artigos, idealmente estas tabelas seriam sobre as coisas que te interessam encontrar. Por exemplo, nesta secção estás interessado é nos smells, logo, acho que faria mais sentido ser uma tabela de smells, em que indicavas o artigo em que o encontraste (em vez de uma tabela de artigos em que indicas os smells, estou a fazer sentido?). A mesma ideia é aplicável às outras secções.}
@@ -104,26 +155,47 @@ Lu et al. \cite{luEmpiricalCaseStudy2019} and Xu et al. \cite{xuDockerfileTFSmel
 
 Azuma et al. \cite{azumaEmpiricalStudySelfadmitted2022} focus on a variation of smells they call SATD (self-admitted technical debt) which can be detected in comments written in the Dockerfiles. Due to the nature of these SATDs, implementing repairs to eliminate them could be very complicated.
 
-Wu et al. \cite{wuCharacterizingOccurrenceDockerfile2020} analyzed a large amount of open-source projects and found that Dockerfile smells are very common and their frequency changes according to several factors like the programming language used by the project or the project's age. Due to the variety of smells covered by this study implementing repairs to deal with all of them would be difficult. 
+Wu et al. \cite{wuCharacterizingOccurrenceDockerfile2020} analyzed a large amount of open-source projects and found that Dockerfile smells are very common and their frequency changes according to several factors like the programming language used by the project or the project's age. Due to the variety of smells covered by this study implementing repairs to deal with all of them would be difficult. For the same reasons, only some of the analyzed smells were listed here.
 
 \section{Dockerfile Good Practices} \label{sec:dockerfile_good_practices}
 
-To prevent the creation of smells like the ones mentioned in Section \ref{sec:dockerfile_smells}, a developer should follow good practices. This section goes over works that cover these practices. Our findings are summarized in Table \ref{tab:works_dockerfile_good_practices}.
+To prevent the creation of smells like the ones mentioned in Section \ref{sec:dockerfile_smells}, a developer should follow good practices. This section goes over works that cover these practices. Table \ref{tab:dockerfile_good_practices} contains a list of good practices found in literature.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.25\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Practices} & \textbf{Limitations} & \textbf{Practices that could be implemented} \\
-        \hline Learning from, Understanding, and Supporting DevOps Artifacts for Docker \cite{henkelLearningUnderstandingSupporting2020} & Related to usage of package managers and command line utilities (gold rules) & No inherent repair functionality & All of them \\
-        \hline Security Misconfigurations Detection and Repair in Dockerfile \cite{prinettoSecurityMisconfigurationsDetection} & Practices that make an image more secure & Limited to improving security (although these practices have other benefits) & Most of them \\
-        \hline Ten simple rules for writing Dockerfiles for reproducible data science \cite{nustTenSimpleRules2020} & Rules 3,4,5 and 9 are applicable to every scenario & Focused on data science & Rules 5 and 9 \\
+    \begin{tabular}{|p{0.7\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Practice} & \textbf{Related works} \\
+        \hline Format for clarity & \cite{nustTenSimpleRules2020} \\
+        \hline Document within the Dockerfile & \cite{nustTenSimpleRules2020} \\
+        \hline Specify software versions & \cite{nustTenSimpleRules2020} \\
+        \hline Order the instructions & \cite{nustTenSimpleRules2020} \\
+        \hline Run the container in rootless mode & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Use tagged minimal images and multistage builds & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Use COPY with specific parameters & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Update and install packages in the same RUN instruction & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Use COPY instead of ADD & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Do not leak sensitive information to an image & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Remove unnecessary dependencies & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Only expose ports that are needed & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Use official images when possible & \cite{prinettoSecurityMisconfigurationsDetection} \\
+        \hline Remove temporary directories & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use flag \textit{-f} with curl & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Remove tarballs after extraction & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Do not use APK's cache & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Do not install dependencies recommended by APT & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use HTTPS urls with curl & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use batch flag with gpg & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use HTTPS urls with wget & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Use flag \textit{-y} with \textit{apt-get install} & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Remove APT lists after package installation & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Run \textit{apt-get update} before \textit{apt-get install} & \cite{henkelLearningUnderstandingSupporting2020} \\
         \hline
-    \end{tabular} 
-    \caption{Works about Dockerfile good practices}
-    \label{tab:works_dockerfile_good_practices}
+    \end{tabular}
+    \caption{Dockerfile good practices}
+    \label{tab:dockerfile_good_practices}
 \end{table}
 
-Henkel et al. \cite{henkelLearningUnderstandingSupporting2020} mined rules from Dockerfiles created by experts, allowing them to create a set of "gold rules", a set of patterns that often appear in Dockerfiles written by these experts. All of these "gold rules" could be implemented as repairs.
+Henkel et al. \cite{henkelLearningUnderstandingSupporting2020} mined rules from Dockerfiles created by experts, allowing them to create a set of "gold rules", a set of patterns that often appear in Dockerfiles written by these experts. Some of these "gold rules" are not listed above because it's not clear what they refer to. It should be possible to implement the listed ones as repairs.
 
 Prinetto et al. \cite{prinettoSecurityMisconfigurationsDetection} looked for flaws in Dockerfiles that could lead to vulnerabilities in a system. As part of that work they list a set of practices developers should follow to improve a Docker image's security. Most of the practices listed could be implemented as repair, although some of them would be too complex to implement.
 
@@ -143,7 +215,7 @@ Nowadays, security is a topic that is heavily discussed and deserves a great amo
         \hline Security Analysis of Code Bloat in Machine Learning Systems \cite{ahmedSecurityAnalysisCode2022} & Removing bloat from containers used in machine learning environments can considerably improve security & It should be possible to implement some repairs that reduce bloat \\
         \hline Security Misconfigurations Detection and Repair in Dockerfile \cite{prinettoSecurityMisconfigurationsDetection} & Security problems are common in containers, a way to repair them is proposed & It might be possible to implement the proposed technique to repair the problems \\
         \hline
-    \end{tabular} 
+    \end{tabular}
     \caption{Works about Dockerfile security}
     \label{tab:works_dockerfile_security}
 \end{table}
@@ -160,21 +232,30 @@ Implementing repairs that address most of the problems and vulnerabilities found
 
 \section{Dockerfile Repair} \label{sec:dockerfile_repair}
 
-Like the previous sections have shown, the average Dockerfile has several problems and it can be difficult for a developer to figure out how to deal with those issues in an optimal way. This makes it important to create tools that can assist developers in the repair process. This section goes over works that do that (although other sections also discuss works that perform repairs that are related to more specific scenarios). Our findings are summarized in Table \ref{tab:works_dockerfile_repair}.
+Like the previous sections have shown, the average Dockerfile has several problems and it can be difficult for a developer to figure out how to deal with those issues in an optimal way. This makes it important to create tools that can assist developers in the repair process. This section goes over works that do that (although other sections also discuss works that perform repairs that are related to more specific scenarios). Table \ref{tab:dockerfile_repair} contains a list of repairs found in literature.
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
-        \hline \textbf{Name} & \textbf{Performed repair} & \textbf{Limitations} & \textbf{Implementation Complexity} \\
-        \hline Latest Image Recommendation Method for Automatic Base Image Update in Dockerfile \cite{kitajimaLatestImageRecommendation2020} & Base image update & Does not cover other parts of the Dockerfile & Medium \\
-        \hline Learning from, Understanding, and Supporting DevOps Artifacts for Docker \cite{henkelLearningUnderstandingSupporting2020} & Enforcing the gold rules by detecting violations & Does not perform the repair, only helps detect places where they should be performed & Medium \\
-        \hline RUDSEA: recommending updates of Dockerfiles via software environment analysis \cite{hassanRUDSEARecommendingUpdates2018} & Updates portions of the source code which are tied to values in the source code & Does not cover parts other parts of the Dockerfile & Medium-High \\
-        \hline Shipwright: A Human-in-the-Loop System for Dockerfile Repair \cite{henkelShipwrightHumanintheLoopSystem2021} & Repairs that deal with some functional problems & Some of the repairs listed can only be applied to some projects & Medium \\
-        \hline Supporting micro-services deployment in a safer way: a static analysis and automated rewriting approach \cite{benniSupportingMicroservicesDeployment2018} & Reducing the number of layers in the image to take advantage of layer caching & Small number of repairs & Low-Medium \\
+    \begin{tabular}{|p{0.7\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Repair} & \textbf{Related works} \\
+        \hline Base image update & \cite{kitajimaLatestImageRecommendation2020} \\
+        \hline Gold rule enforcement (rules listed in Section \ref{sec:dockerfile_good_practices}) & \cite{henkelLearningUnderstandingSupporting2020} \\
+        \hline Update portions of the Dockerfile which are ties to values in source code & \cite{hassanRUDSEARecommendingUpdates2018} \\
+        \hline Combine consecutive RUN instructions into one & \cite{benniSupportingMicroservicesDeployment2018} \\
+        \hline Fix Ruby version error by pinning Ruby base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix RPM installation error by installing a plugin first & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Update to the latest base image release & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Install libpng-dev instead of libpng12-dev & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix "Unable to locate package" by downgrading Ubuntu base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix Gemfile version error by pinning Ruby base image version & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Fix Ruby encoding error by setting environment variable & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Install missing packages using APK or APT without using cached data & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Do not install the bzr package with APK & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
+        \hline Add the \textit{-L} flag when using curl to install conda & \cite{henkelShipwrightHumanintheLoopSystem2021} \\
         \hline
-    \end{tabular} 
-    \caption{Works about Dockerfile repair}
-    \label{tab:works_dockerfile_repair}
+    \end{tabular}
+    \caption{Dockerfile repairs}
+    \label{tab:dockerfile_repair}
 \end{table}
 
 Kitajima et al. \cite{kitajimaLatestImageRecommendation2020} focused on updating a container's base image by analyzing the available tags, while Hassan et al. \cite{hassanRUDSEARecommendingUpdates2018} focused on portions of the Dockerfile which are tied to values in the source code.
@@ -186,9 +267,56 @@ Benni et al. \cite{benniSupportingMicroservicesDeployment2018} describe a way to
 Implementing the repairs mentioned in this section should be possible, although these implementations would have varying degrees of complexity.
 
 \section{Dockerfile Bloat} \label{sec:dockerfile_bloat}
+
+Many Docker images contain bloat \cite{rastogiCimplifierAutomaticallyDebloating2017} and their removal has benefits beyond the space saving. For example, a debloated image can be much more secure \cite{ahmedSecurityAnalysisCode2022}. Because of this, we looked for works that described ways to address this problem. Our findings are summarized in Table \ref{tab:works_dockerfile_bloat}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.4\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Removal rate} & \textbf{Limitations} \\
+        \hline Cimplifier: automatically debloating containers \cite{rastogiCimplifierAutomaticallyDebloating2017} & Up to 95\% of image size & Relies on good test coverage \\
+        \hline Large-scale Debloating of Binary Shared Libraries \cite{agadakosLargescaleDebloatingBinary2020} & 20-25\% of code in the image & Debloating happens at the binary level and does not perform any Docker specific changes \\
+        \hline New Directions for Container Debloating \cite{rastogiNewDirectionsContainer2017} & N/A & The suggested approaches are not actually implemented \\
+        \hline Wale: A Dockerfile-Based Approach to Deduplicate Shared Libraries in Docker Containers \cite{santoroWaleDockerfileBasedApproach2018} & Around 40\% of disk space & Only saves space when multiple containers are used \\
+        \hline
+    \end{tabular}
+    \caption{Works about Dockerfile Bloat}
+    \label{tab:works_dockerfile_bloat}
+\end{table}
+
+Cimplifier \cite{rastogiCimplifierAutomaticallyDebloating2017} is a tool that removes bloat from containers by having the developer specify how the contents of an image should be divided and creating several images accordingly. However, single container environments can also be generated if specified by the developer. This tool can drastically reduce the size of an image. However, it relies on dynamic analysis and good test coverage to perform its functions. The same authors also wrote a second article describing other approaches that could be used to perform debloating on containers \cite{rastogiNewDirectionsContainer2017}, although these alternative approaches were not actually implemented.
+
+Nibbler \cite{agadakosLargescaleDebloatingBinary2020} is a tool that performs debloating at the binary level and can remove a decent amount of bloat from an image. However, because it does not make use of any Docker specific mechanisms, it could be difficult to implement in our tool.
+
+Wale \cite{santoroWaleDockerfileBasedApproach2018} is a tool that can debloat containers by placing packages used by multiple containers in a core container that is used by the others. This means it can not debloat systems that use a single container. Despite this, it can save a decent amount of disk space in the scenarios where it can be used.
+
 \section{Dockerfile Testing} \label{sec:dockerfile_testing}
+
+One of the activies developers consider time-consuming is testing their containers to make sure they works as intended \cite{reisDevelopingDockerDockerCompose2022}. This makes sense considering problems like build failure are quite common \cite{wuEmpiricalStudyBuild2020}. Therefore, having tools to help them perform this task could have a positive impact on their development experience. We looked for tools like this in the literature and our findings are summarized in Table \ref{tab:works_dockerfile_testing}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{0.4\textwidth}|p{0.2\textwidth}|p{0.2\textwidth}|}
+        \hline \textbf{Name} & \textbf{Coverage} & \textbf{Limitations} \\
+        \hline DockerMock: Pre-Build Detection of Dockerfile Faults through Mocking Instruction Execution \cite{liDockerMockPreBuildDetection2021} & 68\% & Can not find problem in the environment surrounding the Dockerfile \\
+        \hline Dgoss \footnotemark[7]{} & N/A & The developer must write the tests themselves \\
+        \hline Container Structure Tests \footnotemark[8]{} & N/A & The developer must write the tests themselves \\
+        \hline
+    \end{tabular}
+    \caption{Works about Dockerfile Testing}
+    \label{tab:works_dockerfile_testing}
+\end{table}
+
+DockerMock \cite{liDockerMockPreBuildDetection2021} mocks common Dockerfile instructions in order to find problems before an image is even built. The results are promising, although issues outside the Dockerfile can not be detected.
+
+Dgoss and Container Structure Tests make it easier to create and execute tests meant for containers but do not automate the test creation.
+
+\footnotetext[7]{Dgoss, \url{https://github.com/goss-org/goss/tree/master/extras/dgoss}}
+\footnotetext[8]{Container Structure Tests, \url{https://github.com/GoogleContainerTools/container-structure-test}}
 \section{General Discussion} \label{sec:general_discussion}
 
-Ksontini et al. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings (a concept which is closely tied to smells) and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
+Ksontini et al. \cite{ksontiniRefactoringsTechnicalDebt} focused on refactorings and found that developers' main motivations for performing refactorings were tied to maintainability and image size among others. Implementing some of these refactorings as repairs would be useful, although implementing all of them would be challenging.
+
+... (falta falar sobre a experiência de desenvolvimento e responder às RQs)
 
 \todo{Seria aqui um bom sítio onde responder de forma mais explícita às perguntas que colocamos no início do capítulo.}
