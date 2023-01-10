@@ -17,4 +17,5 @@
 *.snm 
 *.fdb_latexmk 
 *.vrb
+*.gz
 auto/
